@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+   
+
+    <!-- Bootstrap CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <script>
+      function valida_envia() {
+    var usuario = document.getElementById("usuario").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var password2 = document.getElementById("password2").value;
+
+    if (usuario === '' || email === '' || password === '' || password2 === '') {
+        alert("Por favor, completa todos los campos.");
+        return false;
+    }
+
+    if (password.length < 8) {
+        alert("La contraseña debe tener al menos 8 caracteres.");
+        return false;
+    }
+
+    if (password !== password2) {
+        alert("Las contraseñas no coinciden. Por favor, verifica.");
+        return false;
+    }
+
+    // Verificar si las credenciales son correctas (puedes agregar tu lógica aquí)
+    if (email === 'usuario@gmail.com' && password === 'contrasena') {
+        // Credenciales correctas, redirige a index.html
+        window.location.href = 'index.html';
+        return false;
+    } else {
+        alert("Credenciales incorrectas. Por favor, verifica tu correo y contraseña.");
+        return false;
+    }
+}
+
+
+
+
+    </script>
+</head>
+<body>
+
+
+  <!-------->
+  <header class="d-flex flex-row justify-content-center align-items-center"  >
+
+    <div class="position-absolute top-0 start-0" style="margin-top: 40px; margin: 25px;;">
+
+      <a href="landing.html">
+        <img style="width: 30px; height: 30px;position: absolute;  flex-direction: column; justify-content: center; align-items: center; display: inline-flex;"  style="width:fit-content;" src="img/atras.png" class="text-center " />
+        <img style="width: 55px; height: 55px;position: absolute; margin-left: 40px; flex-direction: column; justify-content: center; align-items: center; display: inline-flex;"  style="width:fit-content;" src="img/logo.png" class="text-center " />
+      </a>
+  
+  </div>
+        
+        
+             
+
+</br>
+        <h1 style="font-size: 70px; font-weight: 550; margin-top: 90px; color: white;" >SIGN IN</h1>
+</header>
+
+
+<style>
+    header{
+ background-color: #4911F7;
+ height: 300px;
+ background-position: center;
+ background-repeat: no-repeat;
+  background-size: cover;
+ }
+</style>
+
+    
+
+
+    </br>
+      <!--prueba2-->
+      <main class="container">
+        <div class="row m-3">
+         <div class="col-md-3"></div>
+            <div class="col-md-6">
+      
+       
+          
+      
+            <br/>
+            <br/>
+            <form method="post"  >
+    
+                <div class="form-floating" >
+                    <label for="usuario" style="padding: 10px;">Nombre</label>
+                    <input name="usuario" type="text" id="usuario" placeholder="user123"class="form-control" >
+                 </div>
+                 </br>
+
+                <div class="form-floating">
+                   <label for="email" style="padding: 10px;">E-Mail</label>
+                   <input name="email" type="email" id="email" placeholder="usuario@gmail.com"class="form-control" >
+                </div>
+                </br>
+
+                <div class="form-floating">
+                      <label for="password" style="padding: 10px;">Contraseña</label>
+                      <input name="password" type="password" id="password" placeholder="minimo de 8 caracteres" class="form-control" > 
+                </div>
+               </br>
+
+            <div class="form-floating">
+                  <label for="password2" style="padding: 10px;">Confirmar contraseña</label>
+                  <input name="password2" type="password" id="password2" placeholder="minimo de 8 caracteres" class="form-control" style="margin-bottom: 10px;"> 
+            </div>
+                      <!--div id="passwordHelpBlock" class="form-text">minimo de 8 caracteres</div-->
+
+                
+
+
+              
+                </br-d-flex flex-row justify-content-center align-items-center>
+
+          
+                  
+
+                    <br />
+                    <div class="btn_login text-center">
+                          <div class="d-grid gap-2 ">
+                           <input  type="submit" style= "border-radius: 100px; "id="btn-login" value= "ACEPTAR"  class= "btn-lg" onclick="valida_envia()"><!--crea identificador del boton-->
+                          </div>
+                    </div>
+                  
+
+                    <div class="text-center">
+                        <br/>
+                        <a href="registro.html" class="link-secondary">¿Ya estas registrado?    </a>
+                        <a href="registro.html">Loguearme</a>
+                        <style>
+                          a  {color: #FD4685; text-decoration-line: none; font-weight: 550; } 
+                        </style>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+            </form>
+            </div>
+            </div>
+            <hr />
+    </main>
+    <footer>
+           
+<!--espacio-->
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+</body>
+
+
+
+  
+
+     
+      <div class="row" >
+        <div class="col-sm-5 col-md-6 position-absolute end-0 start-50 translate-middle" >
+          
+          <h5 >Contactanos</h5>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="tit form-label">Nombre y Apellido</label>
+            <div class="input-group">
+              <input type="text" aria-label="First name" class="form-control" placeholder="Nombre">
+              <input type="text" aria-label="Last name" class="form-control" placeholder="Apellido">
+            </div>
+          </div>
+          <div class="mb-3">
+           <label for="exampleFormControlInput1" class="form-label">Gmail</label>
+           <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="@gmail.com">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Consulta</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Envianos tus dudas..."></textarea>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn" type="button" id="boton" style="font-weight: 550;">ENVIAR</button>
+          </div>
+      
+
+
+      <!--pie de pagina--> 
+    
+     <h5 class="alto text-center" >Redes</h5>
+     <div class="text-center">
+      <ul class="lista-redes">
+        <li>
+            <a href="">
+                <img src="img/instagram.png" alt="" width="36" height="36"> 
+                
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <img src="img/facebook.png" alt="" width="36" height="36"> 
+                
+            </a>
+        </li>
+
+        <li>
+            <a href="">
+                <img src="img/tik-tok.png" alt="" width="36" height="36"> 
+                
+            </a>
+        </li>
+    </ul>  
+          
+          <br/>
+    <br/>
+    <br/>
+    <br/>
+       </div>
+
+
+
+
+</footer>
+   
+
+
+   
+   
+
+
+
+   
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Event</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+
+  <!--nav-->
+
+   <!--nav-->
+
+     
+
+       
+        
+        <div class="collapse" id="navbarToggleExternalContent" >
+          <div class="bg-light p-4 " >
+            <h5 class=" h4">Presupuesto</h5>
+            <a href="gastosfacturas.html" id="menulink"><span class="text-muted">Gastos y facturas</span></a>
+          </br>
+          <a href="" id="menulink"><span class="text-muted">Calculadora</span></a>
+          </div>
+
+
+          
+          <div class="bg-light p-4">
+            <h5 class=" h4">Listas</h5>
+           <a href="listas.html" id="menulink"><span class="text-muted" >Compras</span></a> 
+          </br>
+          <a href="listas.html" id="menulink"><span class="text-muted">Tareas</span></a>
+          </div>
+
+          <div class="bg-light p-4">
+            <a href="mesas.html" id="menulink"><h5 class=" h4">Mesas</h5></a>
+          </div>
+
+        </div>
+        <nav class="navbar navbar-light bg-light"style="padding:20px;">
+          <div class="container-fluid">
+            <button  class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" ></span>         <!--img src="img/logo.png" width="40" height="40"-->
+            </button>  
+            <button id="logout">LOG OUT</button>
+          </div>
+        </nav>
+        <div class="container">
+          <div class="col-md-12" >
+            <div class="row" style="  margin-block-start: 55px;">
+              <div class="col-sm-6">
+                <div class="card"  id="horayagenda">
+                  <div class="card-body text-center">
+                    <img src="img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                    <h5 class="card-title" style="margin: 5px;font-weight: bold;font-size: 25px;">12 dias 7 horas 4 minutos</h5>
+                  </div>
+                </div>
+              </div>
+             
+
+
+
+
+              <div class="col-sm-6">              
+                  <div class="card-body text-center ">
+                    <!--img src="img/calendario.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"-->
+                    <!--h5 class="card-title" style="margin: 5px;">Agregar a la agenda</h5-->
+                    <!---->
+                    <div class="container ">
+  
+                      <div class="col-md-12 " >           
+                        <div class="text-center"></br>
+          
+          <!--fecha y hora-->
+          <div class="input-group mb-3">
+            <div class="row">
+                <div class="col">            
+                    <div class="form-floating">
+                      <input type="date" class="form-control" id="floatingInputGrid"  >
+                      <label for="floatingInputGrid">Fecha</label>
+                    </div>
+                  </div>
+                  <div class="col" >
+                      <div class="form-floating">
+                          <input type="datetime" class="form-control" id="floatingInputGrid" >
+                          <label for="floatingInputGrid">Hora</label>
+                      </div>
+                  </div>
+                </div>
+              </div>
+                  <!--titulo-->
+              <div class="input-group mb-3">
+                   <input type="text" class="form-control" placeholder="Titulo" aria-label="clave" aria-describedby="basic-addon1">
+               </div>
+                <!--Notas-->
+                <div class="form-floating">
+                <textarea class="form-control" placeholder="hola" id="floatingTextarea2" style="height: 100px"></textarea>
+                 <label for="floatingTextarea2">Notas</label>
+                </div>
+                <br />
+                <div class="btn_login text-center">
+                      <div class="d-grid gap-2 ">
+                       <input  type="submit" style= "border-radius: 100px; padding: 5px; " value= "AGREGAR A LA AGENDA"  class= "subir" onclick="valida_envia()"><!--crea identificador del boton-->
+                      </div>
+                </div>
+                
+
+
+
+                    <!---->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+      
+
+
+
+
+
+    </body>
+    </html>

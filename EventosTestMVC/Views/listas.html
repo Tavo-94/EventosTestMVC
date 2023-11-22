@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <title>List</title>
+</head>
+<body>
+
+
+
+    
+   <!--nav-->
+    <!--nav-->
+
+
+     
+
+       
+        
+        <div class="collapse" id="navbarToggleExternalContent" >
+          <div class="bg-light p-4 " >
+            <h5 class=" h4">Presupuesto</h5>
+            <a href="gastosfacturas.html" id="menulink"><span class="text-muted">Gastos y facturas</span></a>
+          </br>
+          <a href="" id="menulink"><span class="text-muted">Calculadora</span></a>
+          </div>
+
+
+          
+          <div class="bg-light p-4">
+            <h5 class=" h4">Listas</h5>
+           <a href="" id="menulink"><span class="text-muted" >Compras</span></a> 
+          </br>
+          <a href="" id="menulink"><span class="text-muted">Tareas</span></a>
+          </div>
+
+          <div class="bg-light p-4">
+            <a href="mesas.html" id="menulink"><h5 class=" h4">Mesas</h5></a>
+          </div>
+
+        </div>
+        <nav class="navbar navbar-light bg-light"style="padding:20px;">
+          <div class="container-fluid">
+            <button  class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" ></span>         <!--img src="img/logo.png" width="40" height="40"-->
+            </button>  
+            <button id="logout">LOG OUT</button>
+          </div>
+        </nav>
+
+
+
+        <!--contenedor-->
+        <div class="container" >
+            <div class="row" style="margin-top: 20px;padding: 40px;">
+                <section class="col-md-6 top-0 bottom-0 end-0" id="landing">
+                    <div class="col-md-12 " >
+
+                         <!--TAREAS-->
+    <h1 class="text-center">Tareas</h1>
+    <form id="infoForm">
+        <label for="infoInput"></label>
+        <!--input type="text" id="infoInput"-->
+        <div class="mb-3">
+          
+            <textarea type="text" id="infoInput" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="text-center">
+        <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarInformacion()">Agregar a la lista</button>
+    </div>
+    </form>
+
+
+
+    <h2 class="text-center">Tareas pendientes:</h2>
+    <ul id="infoList" ></ul>
+    
+   
+</div>
+
+
+
+</section>
+
+<div class="col-md-6">
+    <div class="w-100 ">
+          <!--COMPRAS-->
+     <h1 class="text-center">Compras</h1>
+     <form id="infoForm2">
+         <label for="infoInput2"></label>
+         <!--input type="text" id="infoInput"-->
+         <div class="mb-3">
+           
+             <textarea type="text" id="infoInput2" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+           </div>
+           <div class="text-center">
+         <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarInfo2()">Agregar a la lista</button>
+        </div>
+     </form>
+
+
+
+  
+
+    <div class="w-100 ">
+    <h2 class="text-center">Compras pendientes:</h2>
+    <ul id="infoList2"></ul>
+    </div>
+
+    <script>
+        function agregarInformacion() {
+            // Obtén el valor del campo de entrada
+            const infoInput = document.getElementById('infoInput');
+            const nuevaInformacion = infoInput.value;
+
+            // Asegúrate de que no esté vacío
+            if (nuevaInformacion.trim() === '') {
+                alert('Ingresa una información válida.');
+                return;
+            }
+
+            // Agrega la nueva información a la lista
+            const infoList = document.getElementById('infoList');
+            const listItem = document.createElement('li');
+            listItem.textContent = nuevaInformacion;
+            infoList.appendChild(listItem);
+
+            // Borra el campo de entrada
+            infoInput.value = '';
+        }
+    </script>
+
+
+
+
+<script>
+    function agregarInfo2() {
+        // Obtén el valor del campo de entrada
+        const infoInput2 = document.getElementById('infoInput2');
+        const nuevaInformacion2 = infoInput2.value;
+
+        // Asegúrate de que no esté vacío
+        if (nuevaInformacion2.trim() === '') {
+            alert('Ingresa una información válida.');
+            return;
+        }
+
+        // Agrega la nueva información a la lista
+        const infoList2 = document.getElementById('infoList2');
+        const listItem2 = document.createElement('li');
+        listItem2.textContent = nuevaInformacion2;
+        infoList2.appendChild(listItem2);
+
+        // Borra el campo de entrada
+        infoInput2.value = '';
+    }
+</script>
+</body>
+</html>

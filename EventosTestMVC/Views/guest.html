@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Guest</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+
+
+
+
+    <!--asistencia-->
+    <style>
+      #asistenciaCheckbox {
+            display: none;
+        }
+
+        #asistenciaLabel {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Crear un círculo */
+            background-color: red; /* Color por defecto para "No asisto" */
+            cursor: pointer;
+        }
+
+        #asistenciaCheckbox:checked + #asistenciaLabel {
+            background-color: green; /* Cambiar a verde cuando se marca el checkbox */
+        }
+
+        #resultado {
+            font-size: 18px;
+            display: inline;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+  </style>
+
+
+<!--asistencia-->
+</head>
+<body>
+
+  v <!--nav--> 
+  <!--nav-->
+
+
+    
+    
+        <nav class="navbar navbar-light bg-light"style="padding:20px;">
+          <div class="container-fluid justify-content-md-end ">
+            <button id="logout" >LOG OUT</button>
+          </div>
+        </nav>
+
+
+
+
+
+        <div class="container">
+            <div class="col-md-12">
+              <div class="row" style="  margin-block-start: 55px;">
+                <div class="col-sm-6">
+
+                  <div class="card" id="horayagenda">
+                    <div class="card-body text-center">
+                      <img src="img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                      <h5 class="card-title" style="margin: 5px; font-weight: bold; font-size: 25px;">12 dias 7 horas 4 minutos</h5>
+                    </div>
+                  </div>
+                  <div class="card" id="horayagenda">
+                    <div class="card-body text-center ">        
+                      
+                      <div>
+                     
+                      <input type="checkbox" id="asistenciaCheckbox" >
+                        <label for="asistenciaCheckbox" id="asistenciaLabel"></label>
+                        <p id="resultado" style="font-weight: bold; font-size: 30px; ">Asistencia</p>
+                      </div>
+
+                        <script>
+                          const checkbox = document.getElementById("asistenciaCheckbox");
+                          const resultado = document.getElementById("resultado");
+                  
+                          checkbox.addEventListener("change", function () {
+                              if (checkbox.checked) {
+                                  resultado.style.color = "green"; // Cambiar el color del texto a verde
+                                  resultado.textContent = "Asistire";
+                              } else {
+                                  resultado.style.color = "red"; // Cambiar el color del texto a rojo
+                                  resultado.textContent = "No asistire";
+                              }
+                          });
+                      </script>
+                      
+                    </div>
+                  </div>
+
+              </div>
+                
+            
+            
+
+            <div class="col-md-6">             </br>
+                <h3>Informacion del evento</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id culpa tenetur perferendis magnam qui dolor, molestiae laboriosam, pariatur laborum aspernatur dignissimos ipsum amet repudiandae, dolorem enim unde labore quo veniam!</p>
+
+                </div>
+            
+            </div>
+                
+            </div>
+          </div>
+
+
+
+        </body>
+    
+
+        
+
+
+</html>
