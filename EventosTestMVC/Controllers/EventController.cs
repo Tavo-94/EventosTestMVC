@@ -21,6 +21,10 @@ namespace EventosTestMVC.Controllers
         {
             return View();
         }
+        public IActionResult Evento()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
