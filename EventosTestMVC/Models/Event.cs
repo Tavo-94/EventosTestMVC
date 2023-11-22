@@ -11,6 +11,12 @@ namespace EventosTestMVC.Models
         public DateTime CreationDate { get; set; }
         public DateTime EventDate { get; set; }
 
+        //extras
+        public string Lugar { get; set; }
+        public string Vestimenta { get; set; } //falta tabla
+        public string ListaCosas { get; set; }
+        public string TipoEvento { get; set; }
+
         public string? PlannerEmail { get; set; }
 
 

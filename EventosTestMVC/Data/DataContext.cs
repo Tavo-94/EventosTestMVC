@@ -1,4 +1,4 @@
-﻿using EventosTestMVC.Models;
+﻿ using EventosTestMVC.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventosTest.Data
