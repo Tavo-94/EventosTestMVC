@@ -133,6 +133,9 @@ namespace EventosTestMVC.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Hora")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ListaCosas")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -153,13 +156,14 @@ namespace EventosTestMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Vestimenta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("VestimentaId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlannerEmail");
+
+                    b.HasIndex("VestimentaId");
 
                     b.ToTable("Events");
                 });
@@ -369,6 +373,23 @@ namespace EventosTestMVC.Migrations
                     b.ToTable("UserComments");
                 });
 
+            modelBuilder.Entity("EventosTestMVC.Models.Vestimenta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vestimenta");
+                });
+
             modelBuilder.Entity("EventSupply", b =>
                 {
                     b.HasOne("EventosTestMVC.Models.Event", null)
@@ -422,7 +443,15 @@ namespace EventosTestMVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EventosTestMVC.Models.Vestimenta", "Vestimenta")
+                        .WithMany()
+                        .HasForeignKey("VestimentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Planner");
+
+                    b.Navigation("Vestimenta");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.EventToUsers", b =>

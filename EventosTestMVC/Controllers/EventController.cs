@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EventosTest.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventosTestMVC.Controllers
 {
@@ -19,6 +20,8 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.VestimentaList = VestimentaList();
+            ViewBag.TagsList = TagsList();
             return View();
         }
         public IActionResult Evento()
@@ -43,7 +46,6 @@ namespace EventosTestMVC.Controllers
                    Lugar = model.Lugar,
                    Vestimenta = model.Vestimenta,
                    ListaCosas = model.ListaCosas,
-                   TipoEvento = model.TipoEvento,
                  
 
                 };
@@ -66,5 +68,16 @@ namespace EventosTestMVC.Controllers
             // Si llegamos a este punto, significa que hubo un error en el modelo, volvemos a mostrar el formulario con errores.
             return View(model);
         }
+        private SelectList VestimentaList()
+        {
+            var tiposVestimenta = _context.Vestimenta.ToList(); // Obtén la lista de tipos de vestimenta desde la base de datos
+            return new SelectList(tiposVestimenta, "Id", "Tipo"); // Crea un SelectList con la lista de tipos de vestimenta
+        }
+        private SelectList TagsList()
+        {
+            var TagsList = _context.Tags.ToList(); // Obtén la lista de tipos de vestimenta desde la base de datos
+            return new SelectList(TagsList, "Id", "Description"); // Crea un SelectList con la lista de tipos de vestimenta
+        }
+
     }
 }

@@ -9,49 +9,74 @@
     <link rel="stylesheet" href="~/EventosTestMVC.styles.css" asp-append-version="true" />
 </head>
 <body>
-   
+
     <header>
-        <nav class="navbar  " id="barra">
-            <form class="container-fluid justify-content-start text-center">
-
-                <div class="col-sm-3">
-                    <a class="navbar-brand" href="#">
-                        <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                    </a>
-                </div>
-
-                <div class="col-sm-3">
-                    <a class="navbar-brand" href="#">
-                        <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                    </a>
-                </div>
-
-                <div class="col-sm-3">
-                    <a class="navbar-brand" href="#">
-                        <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                    </a>
-                </div>
-
-                <div class="col-sm-3">
-                    <a class="navbar-brand" href="#">
-                        <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                    </a>
-                </div>
-
-            </form>
-        </nav>
+        @if (!Context.Request.Path.Equals("/") && !Context.Request.Path.Equals("/Home/Index"))
+        {
+            @await Html.PartialAsync("_NavbarLayout")
+        }
     </header>
+   
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
+    <footer class="mt-5 mb-5">
         <div class="container">
-            &copy; 2023 - EventosTestMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>Contactanos</h5>
+                    <form sm-4>
+                        <div class="sm-2">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre y Apellido</label>
+                            <div class="input-group">
+                                <input type="text" aria-label="First name" class="form-control" placeholder="Nombre">
+                                <input type="text" aria-label="Last name" class="form-control" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="sm-2">
+                            <label for="exampleFormControlInput1" class="form-label">Gmail</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="gmail.com">
+                        </div>
+                        <div class="sm-2">
+                            <label for="exampleFormControlTextarea1" class="form-label">Consulta</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Envianos tus dudas..."></textarea>
+                        </div>
+                        </br>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-sm btn-primary" type="button" style="font-weight: 550;">ENVIAR</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Pie de página -->
+                <div class="col-sm-6">
+                    <h5 class="alto text-center">Redes</h5>
+                    <div class="text-center">
+                        <ul class="lista-redes">
+                            <li>
+                                <a href="">
+                                    <img src="~/img/instagram.png" alt="" width="36" height="36">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="~/img/gmail.png" alt="" width="36" height="36">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="~/img/twitter.png" alt="" width="36" height="36">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

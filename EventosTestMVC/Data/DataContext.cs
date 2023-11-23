@@ -1,4 +1,5 @@
 ﻿ using EventosTestMVC.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventosTest.Data
@@ -9,6 +10,7 @@ namespace EventosTest.Data
         {
         }
 
+        public DbSet<Vestimenta> Vestimenta { get; set; }
 
         //Entities
 
@@ -34,5 +36,7 @@ namespace EventosTest.Data
         public DbSet<Supply> Supplies { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        
     }
+    
 }
