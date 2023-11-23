@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+
+    <title>Create</title>
+</head>
+<body >
+
+
+  <div class="position-absolute top-0 start-0" style="margin-top: 40px; margin: 25px;;">
+
+    <a href="landing.html">
+      <img style="width: 30px; height: 30px;position: absolute;  flex-direction: column; justify-content: center; align-items: center; display: inline-flex;"  style="width:fit-content;" src="img/atras.png" class="text-center " />
+      <img style="width: 55px; height: 55px;position: absolute; margin-left: 40px; flex-direction: column; justify-content: center; align-items: center; display: inline-flex;"  style="width:fit-content;" src="img/logo.png" class="text-center " />
+    </a>
+
+</div>
+
+
+<!--código de vestimenta, horario, lugar, fecha, itinerario)
+publicar lista de cosas a llevar 
+publicar ideas de regalos (de ser necesario)
+-->
+  
+      
+<style>
+  body{
+    background-image:url(img/f.jpg);
+  filter:alpha(opacity=10);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+
+  } 
+  
+  section{
+    margin: 30px;
+    padding: 20px;
+  }
+</style>
+      
+
+
+
+
+
+
+    <section style="margin-top: 140px;">
+      <div class="row" >
+        <div class="col-md-5 col-md-6 text-center">
+         <div class="abj"> <!--IZQUIERDA-->
+          <div class="container ">
+  
+                  <div class="col-md-12 " >  
+                       
+                    <h2 class="text-white">Datos del evento</h2> <hr />     </br>
+                    <div class="text-center">
+      
+      <!--fecha y hora-->
+      <div class="input-group  mb-3">
+        <div class="row">
+            <div class="col">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="floatingInputGrid"  >
+                  <label for="floatingInputGrid">Fecha</label>
+                </div>
+              </div>
+              <div class="col" >
+                  <div class="form-floating">
+                      <input type="datetime" class="form-control" id="floatingInputGrid" >
+                      <label for="floatingInputGrid">Hora</label>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!--lugar-->
+      <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Lugar del evento" aria-label="clave" aria-describedby="basic-addon1">
+      </div>
+      
+      <!--codigo de vestimenta-->
+      <div class="input-group mb-3">
+      <div class="form-floating">
+          <select class="form-select" id="floatingSelectGrid">
+            <option selected>Casual</option>
+            <option value="1">Formal</option>
+            <option value="2">Elegante</option>
+            <option value="3">Deportivo</option>
+            <option value="4">Disfraz</option>
+            <option value="5">Piyama</option>
+          </select>
+          <label for="floatingSelectGrid">Codigo de vestimenta</label>
+        </div>
+      </div>
+      
+        <!--lista de cosas a llevar-->
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="hola" id="floatingTextarea2" style="height: 100px"></textarea>
+          <label for="floatingTextarea2">Lista de cosas a llevar</label>
+        </div> 
+          </div>
+          </div> 
+          </div>
+         </div>
+        </div>
+
+
+
+
+
+        <div class="col-md-4 offset-md-1 col-md-5 offset-md-0">
+          <div class="container-fluid">
+          <h4 class="alto text-center"></h4>
+          <div class="tit mb-3">
+            <div class="input-group mb-3">
+              <select class="form-select" aria-label="Default select example" >
+                <option selected>Tipo de evento</option>
+                <option value="1">Fiesta</option>
+                <option value="2">Cumpleaños</option>
+                <option value="3">Boda</option>
+                <option value="4">15 años</option>
+                <option value="5">Baby Shower</option>
+                <option value="6">Reunion con amigos</option>
+                <option value="7">Reunion familiar</option>
+                <option value="8">Despedida de soltera/o</option>
+                <option value="9">Piyamada</option>
+              </select>
+              </div>
+    
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Crear clave de ingreso"  aria-label="clave" aria-describedby="basic-addon1">
+              </div>
+            
+                <div class="input-group mb-3 input-group-lg">
+                    <input type="text" class="form-control" placeholder="Nombre del evento" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                </div>
+    
+                <div class="input-group mb-3 input-group-lg">
+                <!--label for="exampleColorInput" class="form-label">Color picker</label-->
+                <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+                </div>
+                
+              </br>
+                <a href="event.html" style="text-decoration-line: none; ">
+                <div class="d-grid gap-2 ">
+                   <button class="btn " type="button" id="boton">CREAR EVENTO</button>
+                </div>
+                </a>
+        </div>    
+      </div>
+    </div>   
+</div>
+</section>
+   
+
+      
+</body>
+</html>

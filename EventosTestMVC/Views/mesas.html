@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (Tus encabezados) ... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Tables</title>
+    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+
+
+    <script>
+        function Calc(){
+            var val1 = document.getElementById("val1").value;
+            var val2 = document.getElementById("val2").value;
+            var opt = document.getElementById("opt").value;
+            
+            var ans = eval(val1 + opt + val2);
+            document.getElementById("ans").value = ans;
+        }
+    </script>
+       
+    <script>
+        function Calc2(){
+            var val3 = document.getElementById("val3").value;
+            var val4 = document.getElementById("val4").value;
+            var opt2 = document.getElementById("opt2").value;
+            
+            var ans2 = eval(val3 + opt2 + val4);
+            document.getElementById("ans2").value = ans2;
+        }
+    </script>
+
+</head>
+<body>
+   
+ <!--nav-->
+ <!--nav-->
+
+        <!-- nav -->
+        <div class="collapse" id="navbarToggleExternalContent" >
+          <div class="bg-light p-4 " >
+            <h5 class=" h4">Presupuesto</h5>
+            <a href="gastosfacturas.html" id="menulink"><span class="text-muted">Gastos y facturas</span></a>
+          </br>
+          <a href="" id="menulink"><span class="text-muted">Calculadora</span></a>
+          </div>
+
+
+          
+          <div class="bg-light p-4">
+            <h5 class=" h4">Listas</h5>
+           <a href="listas.html" id="menulink"><span class="text-muted" >Compras</span></a> 
+          </br>
+          <a href="listas.html" id="menulink"><span class="text-muted">Tareas</span></a>
+          </div>
+
+          <div class="bg-light p-4">
+            <a href="mesas.html" id="menulink"><h5 class=" h4">Mesas</h5></a>
+          </div>
+
+        </div>
+        <nav class="navbar navbar-light bg-light"style="padding:20px;">
+          <div class="container-fluid">
+            <button  class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon" ></span>         <!--img src="img/logo.png" width="40" height="40"-->
+            </button>  
+            <button id="logout">LOG OUT</button>
+          </div>
+        </nav>
+
+    
+
+
+
+
+    <div class="container" style="margin-top: 6
+    
+    0px;">
+        <div class="row">
+            <div class="col-md-6" style="margin-bottom: 50px;">
+                <h3 class="text-center">Total de Mesas</h3>
+                <!-- ... (Resto de tu formulario) ... -->
+                <hr />
+                <div class="row"> 
+            <div class="col-lg-4">
+                <label for="desc">Total de invitados:</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="val1" value="60" required>
+            </div>
+            </div>
+
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="desc">Cantidad de SillasxMesa</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="val2" value="8" required>
+            </div>
+            <div class="col-lg-1">
+                <select id="opt2" class="form-control" >
+                    <option>/</option>
+                </select>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="desc">Total de Mesas:</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="ans" readonly>
+            </div>
+             <div class="btn_login text-center" style="margin-block-start: 30px; margin-bottom: 30px;">
+                <div class="d-grid gap-2 ">
+                <button type="submit" name="submit" style= "border-radius: 100px; margin-bottom: 10px;" class="subir btn " onClick="Calc()">CALCULAR</button>
+                <button type="submit" name="submit" style= "border-radius: 100px;  margin-bottom: 10px;" class="subir btn " onClick="generateForms()">Completar lista de invitados</button>
+                <button type="submit" name="submit" style= "border-radius: 100px; padding: 5px; "  id="btn-login"  onClick="imprimir()">Imprimir lista</button>
+            </div>
+        </div>
+     </div>
+
+     <section  class="centrado-vertical-horizontal ">       
+        <div id="formContainer" class="container-fluid  " >
+            
+            <!-- Los formularios se generarán aquí -->
+        </div>
+    </section>
+
+            </div>
+            <div class="col-md-6 top-0 bottom-0 end-0">
+                <main class="container">
+                    <h3 class="text-center">Cantidad de SillasxMesa</h3>
+                    <!-- ... (Resto de tu otro formulario) ... -->
+                    <hr />
+                <div class="row"> 
+            <div class="col-lg-4">
+                <label for="desc">Total de invitados:</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="val3" value="60" required>
+            </div>
+            </div>
+
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="desc">Cantidad de SillasxMesa</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="number" class="form-control" id="val4" value="8" required>
+            </div>
+            <div class="col-lg-1">
+                <select id="opt" class="form-control" >
+                    <option>/</option>
+                </select>
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <label for="desc">Total de Mesas:</label> 
+            </div>
+            <div class="col-lg-2">
+                <input type="text" class="form-control" id="ans2" readonly>
+            </div>
+             <div class="btn_login text-center" style="margin-block-start: 30px;">
+                <div class="d-grid gap-2 ">
+                <button type="submit" name="submit" style= "border-radius: 100px;" class="subir btn " onClick="Calc2()">CALCULAR</button>
+                
+            </div>
+            
+        </div>
+     </div>
+
+
+
+                </main>
+            </div>
+        </div>
+    </div>
+</br>
+</br>
+
+
+
+    <style>
+        .centrado-vertical-horizontal {
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            margin: 20px;
+           
+        }
+    </style>
+    
+
+   
+
+
+
+
+    <script>
+        function generateForms() {
+
+            const totalMesas = parseInt(document.getElementById("ans").value);
+            const sillasPorMesa = parseInt(document.getElementById("val2").value);
+
+            const formContainer = document.getElementById("formContainer");
+            formContainer.innerHTML = ''; // Limpiar el contenedor antes de generar nuevos formularios
+
+            
+
+            for (let i = 1; i <= totalMesas; i++) {
+               
+                const form = document.createElement("form");
+                form.innerHTML = `</br><h4 class="mesa">Mesa ${i}</h4>`;
+                for (let j = 1; j <= sillasPorMesa; j++) {
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.name = `mesa${i}_silla${j}`;
+                    input.placeholder = `Silla ${j}`;
+                    form.appendChild(input);
+                }
+                formContainer.appendChild(form);
+                
+            }
+           
+        } 
+         
+
+
+        function imprimir(){
+           print("Puedes imprimir tu lista de invitados"); 
+        }
+          
+    </script>
+    
+</body>
+</html>
