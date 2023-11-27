@@ -50,9 +50,8 @@ namespace EventosTestMVC.Controllers
         // GET: Eventoes/Create
         public IActionResult Create()
         {
-            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimentas, "Id", "Id");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id");
-            ViewData["TipoEventoId"] = new SelectList(_context.TipoEventos, "Id", "Id");
+            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimentas, "Id", "Nombre");
+            ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre");
             return View();
         }
 
@@ -61,18 +60,16 @@ namespace EventosTestMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Fecha,Hora,Lugar,Descripcion,ListaCosasLlevar,Clave,UsuarioId,TipoEventoId,CodigoVestimentaId")] Evento evento)
+        public async Task<IActionResult> Create( Evento evento)
         {
-            if (ModelState.IsValid)
-            {
+            
                 _context.Add(evento);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimentas, "Id", "Id", evento.CodigoVestimentaId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", evento.UsuarioId);
-            ViewData["TipoEventoId"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.TipoEventoId);
-            return View(evento);
+                return RedirectToAction("Details", new { id = evento.Id });
+           
+            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimentas, "Id", "Nombre", evento.CodigoVestimentaId);
+            ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre", evento.TipoEventoId);
+            return RedirectToAction("Index","Home") ;
         }
 
         // GET: Eventoes/Edit/5

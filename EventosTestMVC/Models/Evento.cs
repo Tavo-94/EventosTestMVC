@@ -7,7 +7,6 @@
         public DateTime Fecha { get; set; }
         public TimeSpan Hora { get; set; }
         public string Lugar { get; set; }
-        public string Descripcion { get; set; }
         public string ListaCosasLlevar { get; set; }
         public string Clave { get; set; }
         public int UsuarioId { get; set; }
