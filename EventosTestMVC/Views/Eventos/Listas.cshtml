@@ -1,0 +1,79 @@
+﻿@model EventosTestMVC.Models.Evento
+
+@{
+    ViewData["Title"] = "Listas";
+}
+<body>
+    <!-- ... (Código existente) -->
+    <!-- TAREAS -->
+    <h1 class="text-center">Tareas</h1>
+    <form id="tareaForm" asp-controller="Eventos" asp-action="Listas">
+        <div class="mb-3">
+            <textarea type="text" id="tareaInput" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarTarea()">Agregar a la lista</button>
+        </div>
+    </form>
+
+    <h2 class="text-center">Tareas pendientes:</h2>
+    <ul id="tareaList"></ul>
+
+    <!-- COMPRAS -->
+    <h1 class="text-center">Compras</h1>
+    <form id="compraForm" asp-controller="Eventos" asp-action="Listas">
+        <div class="mb-3">
+            <textarea type="text" id="compraInput" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarCompra()">Agregar a la lista</button>
+        </div>
+    </form>
+
+    <h2 class="text-center">Compras pendientes:</h2>
+    <ul id="compraList"></ul>
+
+    <script>
+        function agregarTarea() {
+            const tareaInput = document.getElementById('tareaInput');
+            const nuevaTarea = tareaInput.value;
+
+            if (nuevaTarea.trim() === '') {
+                alert('Ingresa una tarea válida.');
+                return;
+            }
+
+            // Enviar datos al servidor
+            $.post({
+                url: '/Eventos/Listas',
+                data: { id: /* valor de id */, tipo: 'tarea', evento: { Descripcion: nuevaTarea } },
+                success: function (result) {
+                    // Manejar la respuesta del servidor si es necesario
+                }
+            });
+
+            tareaInput.value = '';
+        }
+
+        function agregarCompra() {
+            const compraInput = document.getElementById('compraInput');
+            const nuevaCompra = compraInput.value;
+
+            if (nuevaCompra.trim() === '') {
+                alert('Ingresa una compra válida.');
+                return;
+            }
+
+            // Enviar datos al servidor
+            $.post({
+                url: '/Eventos/Listas',
+                data: { id: /* valor de id */, tipo: 'compra', evento: { Descripcion: nuevaCompra } },
+                success: function (result) {
+                    // Manejar la respuesta del servidor si es necesario
+                }
+            });
+
+            compraInput.value = '';
+        }
+    </script>
+</body>

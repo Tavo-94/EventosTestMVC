@@ -1,0 +1,96 @@
+﻿@model EventosTestMVC.Models.Evento
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<body>
+
+    <div class="position-absolute top-0 start-0" style="margin-top: 40px; margin: 25px;">
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+            <img style="width: 30px; height: 30px;position: absolute; flex-direction: column; justify-content: center; align-items: center; display: inline-flex;" style="width:fit-content;" src="~/img/atras.png" class="text-center " />
+            <img style="width: 55px; height: 55px;position: absolute; margin-left: 40px; flex-direction: column; justify-content: center; align-items: center; display: inline-flex;" style="width:fit-content;" src="~/img/logo.png" class="text-center " />
+        </a>
+    </div>
+
+    <form asp-action="Create" asp-controller="Eventos" method="post" class="section-create" style="margin-top: 140px;">
+        <div class="row">
+            <div class="col-md-5 col-md-6 ">
+                <div class="abj">
+                    <!--IZQUIERDA-->
+                    <div class="container ">
+                        <div class="col-md-12 ">
+                            <h2 class="text-white text-center">Datos del evento</h2> <hr />
+                            <!--fecha y hora-->
+                            <div class="input-group mb-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3 form-floating">
+                                            <input asp-for="Fecha" type="date" class="form-control" id="floatingInputGridFecha">
+                                            <label asp-for="Fecha" for="floatingInputGridFecha" style="color: black">Fecha</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3 form-floating">
+                                            <input asp-for="Hora" type="time" class="form-control" id="floatingInputGridHora">
+                                            <label asp-for="Hora" for="floatingInputGridHora" style="color: black">Hora</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--lugar-->
+                            <div class="input-group mb-3">
+                                <input asp-for="Lugar" type="text" class="form-control" placeholder="Lugar del evento" aria-label="clave" aria-describedby="basic-addon1">
+                            </div>
+
+                            <!--codigo de vestimenta-->
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <select asp-for="CodigoVestimentaId" asp-items="@ViewBag.CodigoVestimentaList" class="form-select" id="CodigoVestimentaId">
+                                    </select>
+                                    <label asp-for="CodigoVestimentaId" for="CodigoVestimentaId" style="color: black;">Codigo Vestimenta</label>
+                                </div>
+                            </div>
+
+
+                            <!--lista de cosas a llevar-->
+                            <div class="mb-3">
+                                <textarea asp-for="ListaCosasLlevar" class="form-control" placeholder="Lista de cosas a llevar" style="height: 100px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 offset-md-1 col-md-5 offset-md-0">
+                <div class="container-fluid">
+                    <h4 class="alto text-center"></h4>
+                    <div class="tit mb-3">
+                        <div class="mb-3">
+                            <label for="TipoEventoId">Tipo de evento</label>
+                            <select asp-for="TipoEventoId" asp-items="@ViewBag.TipoEventoList" class="form-select" aria-label="Tipo de evento"></select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input asp-for="Clave" type="text" class="form-control" placeholder="Crear clave de ingreso" aria-label="clave" aria-describedby="basic-addon1">
+                        </div>
+
+                        <div class="input-group mb-3 input-group-lg">
+                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del evento" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                        </div>
+
+                        </br>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn" id="boton">CREAR EVENTO</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

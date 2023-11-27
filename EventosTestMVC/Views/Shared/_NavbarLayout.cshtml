@@ -1,32 +1,56 @@
-﻿
-<header>
-    <nav class="navbar  " id="barra">
+﻿<header>
+    <nav class="navbar" id="barra">
         <form class="container-fluid justify-content-start text-center">
-
             <div class="col-sm-3">
-                <a class="navbar-brand" href="#">
-                    <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                </a>
+                <button class="btn btn-outline-white me-2" type="button" id="menu1">
+                    <img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                </button>
             </div>
 
             <div class="col-sm-3">
-                <a class="navbar-brand" href="#">
-                    <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                </a>
+                <button class="btn btn-outline-white me-2" type="button" id="menu2">
+                    <img src="~/img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                </button>
             </div>
 
             <div class="col-sm-3">
-                <a class="navbar-brand" href="#">
-                    <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                </a>
+                <button class="btn btn-outline-white me-2" type="button" id="menu3">
+                    <img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                </button>
             </div>
 
             <div class="col-sm-3">
-                <a class="navbar-brand" href="#">
-                    <button class="btn btn-outline-white me-2" type="button" id="menu"><img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-                </a>
+                <button class="btn btn-outline-white me-2" type="button" id="menu4">
+                    <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                </button>
             </div>
-
         </form>
+
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light p-4">
+                <h5 class="h4">Presupuesto</h5>
+                <a asp-controller="Evento" asp-action="Comprobante" class="menulink"><span class="text-muted">Gastos y facturas</span></a>
+            </div>
+
+            <div class="bg-light p-4">
+                <h5 class="h4">Listas</h5>
+                <a asp-controller="Evento" asp-action="Listas" class="menulink"><span class="text-muted">Compras</span></a>
+                </br>
+                <a asp-controller="Evento" asp-action="Listas" class="menulink"><span class="text-muted">Tareas</span></a>
+            </div>
+
+            <div class="bg-light p-4">
+                <a asp-controller="Evento" asp-action="Mesas" class="menulink"><h5 class="h4">Mesas</h5></a>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-light bg-light" style="padding:20px;">
+            <div class="container-fluid">
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <button id="logout">LOG OUT</button>
+            </div>
+        </nav>
     </nav>
 </header>

@@ -1,0 +1,36 @@
+﻿@model EventosTestMVC.Models.Avatar
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Avatar</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-controller="Avatars" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Ajustar el campo para cargar el archivo -->
+            <div class="form-group">
+                <label asp-for="Ruta" class="control-label">Seleccione un archivo:</label>
+                <input asp-for="Ruta" type="file" name="Archivo" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

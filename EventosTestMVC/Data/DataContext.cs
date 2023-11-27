@@ -1,4 +1,4 @@
-﻿ using EventosTestMVC.Models;
+﻿using EventosTestMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,34 +9,15 @@ namespace EventosTest.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Invitado> Invitados { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<Compra> Compras { get; set; }
+        public DbSet<Comprobante> Comprobantes { get; set; }
+        public DbSet<Avatar> Avatares { get; set; }
+        public DbSet<CodigoVestimenta> CodigoVestimentas { get; set; }
+        public DbSet<TipoEvento> TipoEventos { get; set; }
 
-        public DbSet<Vestimenta> Vestimenta { get; set; }
-
-        //Entities
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<Planner> Planners { get; set; }
-
-        public DbSet<Event> Events { get; set; }
-        public DbSet<EventToUsers> EventsToUsers { get; set; }
-
-        public DbSet<AvatarUser> AvatarUsers { get; set; }
-        public DbSet<AvatarPlanner> AvatarPlanners { get; set; }
-
-        //comments
-        public DbSet<UserComment> UserComments { get; set; }
-        public DbSet<PlannerComment> PlannerComments { get; set; }
-
-        //tags
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagsToEvent> TagsToEvents { get; set; }
-
-
-        //supply
-        public DbSet<Supply> Supplies { get; set; }
-        public DbSet<Category> Categories { get; set; }
-
-        
     }
-    
 }

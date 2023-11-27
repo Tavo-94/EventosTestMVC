@@ -3,80 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EventosTestMVC</title>
+    <title>@ViewData["Title"] - Eventos</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/EventosTestMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Eventos.styles.css" asp-append-version="true" />
 </head>
 <body>
-
     <header>
-        @if (!Context.Request.Path.Equals("/") && !Context.Request.Path.Equals("/Home/Index"))
+        
+        @if (!(Context.Request.Path.Equals("/") || Context.Request.Path.Equals("/Home/Index") || Context.Request.Path.Equals("/Eventos/Create")))
         {
             @await Html.PartialAsync("_NavbarLayout")
         }
     </header>
-   
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <footer class="mt-5 mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>Contactanos</h5>
-                    <form sm-4>
-                        <div class="sm-2">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre y Apellido</label>
-                            <div class="input-group">
-                                <input type="text" aria-label="First name" class="form-control" placeholder="Nombre">
-                                <input type="text" aria-label="Last name" class="form-control" placeholder="Apellido">
-                            </div>
-                        </div>
-                        <div class="sm-2">
-                            <label for="exampleFormControlInput1" class="form-label">Gmail</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="gmail.com">
-                        </div>
-                        <div class="sm-2">
-                            <label for="exampleFormControlTextarea1" class="form-label">Consulta</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="Envianos tus dudas..."></textarea>
-                        </div>
-                        </br>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-sm btn-primary" type="button" style="font-weight: 550;">ENVIAR</button>
-                        </div>
-                    </form>
-                </div>
 
-                <!-- Pie de página -->
-                <div class="col-sm-6">
-                    <h5 class="alto text-center">Redes</h5>
-                    <div class="text-center">
-                        <ul class="lista-redes">
-                            <li>
-                                <a href="">
-                                    <img src="~/img/instagram.png" alt="" width="36" height="36">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="~/img/gmail.png" alt="" width="36" height="36">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="~/img/twitter.png" alt="" width="36" height="36">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - Eventos - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

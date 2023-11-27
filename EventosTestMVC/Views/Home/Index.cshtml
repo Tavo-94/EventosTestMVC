@@ -32,16 +32,16 @@
             </div>
             <!-- Left Section (formerly right) -->
             <section class="col-md-6 top-0 bottom-0 end-0" id="landing">
-                <a asp-area="" asp-controller="Event" asp-action="Create">
+                <a asp-area="" asp-controller="Eventos" asp-action="Create">
                     <div class="text-center w-100">
                         <img src="~/img/mas.png" class="w-50 p-3" alt="..." style=" margin-top: 40px;">
                         <h1 style="color: #FFE0E6;text-decoration-line: none; text-decoration: none;">Crear nuevo evento</h1>
                     </div>
-                </a> 
-                
+                </a>
+
                 <div style="margin-left: 30px;">
                     <div style="margin-top: 25px; color: #FFE0E6;">
-                        <h3>Eventos creados</h3> 
+                        <h3>Eventos creados</h3>
                         <ul style="margin-top: 30px; color: white;">
                             <li>Evento 1</li>
                             <li>Evento 2</li>
@@ -51,6 +51,10 @@
                     </div>
                 </div>
             </section>
+            <p>
+                <a asp-action="Create" asp-controller="Avatars" class="btn btn-primary">Crear Avatar</a>
+
+            </p>
         </div>
     </div>
 </div>
