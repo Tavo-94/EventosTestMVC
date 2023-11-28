@@ -36,6 +36,9 @@
         }
     </script>
 
+
+
+
 </head>
 <body>
    
@@ -79,9 +82,7 @@
 
 
 
-    <div class="container" style="margin-top: 6
-    
-    0px;">
+    <div class="container" style="margin-top: 60px;">
         <div class="row">
             <div class="col-md-6" style="margin-bottom: 50px;">
                 <h3 class="text-center">Total de Mesas</h3>
@@ -122,18 +123,15 @@
              <div class="btn_login text-center" style="margin-block-start: 30px; margin-bottom: 30px;">
                 <div class="d-grid gap-2 ">
                 <button type="submit" name="submit" style= "border-radius: 100px; margin-bottom: 10px;" class="subir btn " onClick="Calc()">CALCULAR</button>
-                <button type="submit" name="submit" style= "border-radius: 100px;  margin-bottom: 10px;" class="subir btn " onClick="generateForms()">Completar lista de invitados</button>
-                <button type="submit" name="submit" style= "border-radius: 100px; padding: 5px; "  id="btn-login"  onClick="imprimir()">Imprimir lista</button>
+                <button type="submit" name="submit" style= "border-radius: 100px;  " class="subir btn " onClick="generateForms()">Completar lista de invitados</button>
+                
+                
+                
             </div>
         </div>
      </div>
 
-     <section  class="centrado-vertical-horizontal ">       
-        <div id="formContainer" class="container-fluid  " >
-            
-            <!-- Los formularios se generarán aquí -->
-        </div>
-    </section>
+     
 
             </div>
             <div class="col-md-6 top-0 bottom-0 end-0">
@@ -199,6 +197,7 @@
             justify-content: center; /* Centrar horizontalmente */
             align-items: center; /* Centrar verticalmente */
             margin: 20px;
+          
            
         }
     </style>
@@ -242,8 +241,103 @@
         function imprimir(){
            print("Puedes imprimir tu lista de invitados"); 
         }
-          
+
+        function guardarEnLocalStorage() {
+            const mesasInfo = [];
+            const totalMesas = parseInt(document.getElementById("ans").value);
+            const sillasPorMesa = parseInt(document.getElementById("val2").value);
+
+            for (let i = 1; i <= totalMesas; i++) {
+                const mesa = { numero: i, sillas: [] };
+
+                for (let j = 1; j <= sillasPorMesa; j++) {
+                    const inputName = `mesa${i}_silla${j}`;
+                    const inputValue = document.querySelector(`input[name="${inputName}"]`).value;
+                    mesa.sillas.push({ numero: j, valor: inputValue });
+                }
+
+                mesasInfo.push(mesa);
+            }
+
+            localStorage.setItem("mesasInfo", JSON.stringify(mesasInfo));
+            console.log("Datos guardados en localStorage:", mesasInfo);
+        }
+        function imprimirDesdeLocalStorage() {
+            const mesasInfoString = localStorage.getItem("mesasInfo");
+
+
+            if (mesasInfoString) {
+                const mesasInfo = JSON.parse(mesasInfoString);
+                console.log("Información de mesas almacenada en localStorage:", mesasInfo);
+
+                // Crear una lista para mostrar la información
+                const lista = document.createElement("ul");
+
+                mesasInfo.forEach((mesa) => {
+                    const itemMesa = document.createElement("li");
+                    itemMesa.textContent = `Mesa ${mesa.numero}:`;
+
+                    const listaSillas = document.createElement("ul");
+
+                    mesa.sillas.forEach((silla) => {
+                        const itemSilla = document.createElement("li");
+                        itemSilla.textContent = `Silla ${silla.numero}: ${silla.valor}`;
+                        listaSillas.appendChild(itemSilla);
+                    });
+
+                    itemMesa.appendChild(listaSillas);
+                    lista.appendChild(itemMesa);
+                });
+
+                // Obtener el elemento donde se mostrará la lista
+                const contenedorLista = document.getElementById("listaMesas");
+
+                // Verificar si el elemento existe antes de modificarlo
+                if (contenedorLista) {
+                    contenedorLista.innerHTML = ''; // Limpiar contenido existente
+                    contenedorLista.appendChild(lista);
+                } else {
+                    console.error("Elemento 'listaMesas' no encontrado en el documento.");
+                }
+            } else {
+                console.log("No hay información de mesas en localStorage.");
+            }
+        }
+
+
+      
     </script>
+ 
+
+ <!--imprime el form-->
+ <section  class=" centrado-vertical-horizontal " style=" margin: 120px;">       
+    <div id="formContainer" class="container-fluid  " >      
+        <!-- Los formularios se generarán aquí -->
+    </div>
+</section>
+
+
+
+    <div class="container" style="max-width: 500px;">
+        <div class="btn_login text-center" >
+            <div class="d-grid gap-2 " >
+    <button type="submit" name="submit" style="border-radius: 100px; padding: 15px;" id="btn-login" onClick="guardarEnLocalStorage()">GUARDAR</button>
+                <button type="submit" name="submit" style="border-radius: 100px; padding: 15px;" id="btn-login" onclick="imprimirDesdeLocalStorage()">IMPRIMIR LISTA</button>
+                <!--button type="submit" name="submit" style= "border-radius: 100px; padding: 5px; "  id="btn-login"  onClick="imprimir()">Imprimir lista</button-->
+     
+     
+     
+            </div>
+     </div>
+     
+      <!--imprime lista de mesas con invitados-->
+      <h4 style="margin-top: 45px; margin-bottom: 30px;" class="mesa text-center">Lista de Invitados x Mesa:</h4>
+    <div id="listaMesas" ></div>
+    </div>
+
+
     
+
+
 </body>
 </html>
