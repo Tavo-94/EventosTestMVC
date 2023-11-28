@@ -4,74 +4,70 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles del Evento</title>
+    <!-- Coloca aquí tus enlaces a hojas de estilo, scripts, etc. -->
+</head>
+<body>
 
-<div>
-    <h4>Evento</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hora)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lugar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lugar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ListaCosasLlevar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ListaCosasLlevar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Clave)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Clave)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreadorEvento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreadorEvento.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoEvento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoEvento.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CodigoVestimenta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CodigoVestimenta.Id)
-        </dd>
-    </dl>
-</div>
+    <nav class="navbar  " id="barra">
+        <!-- ... código de la barra de navegación ... -->
+    </nav>
+
+    <div class="collapse" id="navbarToggleExternalContent">
+        <!-- ... código del contenido externo ... -->
+    </div>
+
+    <nav class="navbar navbar-light bg-light" style="padding:20px;">
+        <!-- ... código de la barra de navegación light ... -->
+    </nav>
+
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row" style="margin-block-start: 55px;">
+                <div class="col-sm-6">
+                    <div class="card" id="horayagenda">
+                        <div class="card-body text-center">
+                            <img src="~/img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                            <h5 class="card-title" style="margin: 5px;font-weight: bold;font-size: 25px;">
+                                @Model.DiasRestantes.ToString("D") días @Model.HorasRestantes.ToString("H") horas @Model.MinutosRestantes.ToString("m") minutos
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card-body text-center">
+                        <div class="container">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <div>
+                                        <h5>@Model.Nombre</h5>
+                                        <p>Fecha: @Model.Fecha.ToShortDateString()</p>
+                                        <p>Hora: @Model.Hora</p>
+                                        <p>Lugar: @Model.Lugar</p>
+                                        <p>Tipo de Evento: @Model.TipoEvento.Nombre</p>
+                                        <p>Código de Vestimenta: @Model.CodigoVestimenta.Nombre</p>
+                                        <p>Lista de Cosas a Llevar: @Model.ListaCosasLlevar</p>
+                                        <p>Clave: @Model.Clave</p>
+                                        <p>Creador del Evento: @Model.CreadorEvento.Nombre @Model.CreadorEvento.Apellido</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coloca aquí tus scripts si es necesario -->
+
+</body>
+</html>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

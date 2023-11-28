@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Eventos.styles.css" asp-append-version="true" />
+    <!-- Otros elementos head -->
+    <!-- Incluir Lottie Web desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.7.4/dist/lottie.js"></script>
 </head>
 <body>
     <header>
-        
+       
         @if (!(Context.Request.Path.Equals("/") || Context.Request.Path.Equals("/Home/Index") || Context.Request.Path.Equals("/Eventos/Create")))
         {
             @await Html.PartialAsync("_NavbarLayout")
@@ -33,3 +36,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+

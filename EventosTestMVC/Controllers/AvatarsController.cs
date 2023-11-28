@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventosTest.Data;
 using EventosTestMVC.Models;
-using System.Diagnostics;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EventosTestMVC.Controllers
 {
     public class AvatarsController : Controller
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly DataContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AvatarsController(IWebHostEnvironment hostingEnvironment, DataContext context)
+        public AvatarsController(DataContext context, IWebHostEnvironment webHostEnvironment)
         {
-            _hostingEnvironment = hostingEnvironment;
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Avatars
@@ -54,49 +54,54 @@ namespace EventosTestMVC.Controllers
             return View();
         }
 
+        public IActionResult SelectAvatar()
+        {
+            var avatars = _context.Avatares.ToList(); // Reemplaza con tu lógica para obtener la lista de avatares
+            return View(avatars);
+        }
+
         // POST: Avatars/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Ruta")] Avatar avatar, IFormFile archivo)
-        {
-            if (ModelState.IsValid)
+        public async Task<IActionResult> Create([Bind("Id,Name,ArchivoLottieFormFile")] Avatar avatar)
+   
             {
-                try
+            // Guarda el archivo JSON Lottie en la carpeta ~/json
+            if (avatar.ArchivoLottieFormFile != null)
+            {
+                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "json");
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + avatar.ArchivoLottieFormFile.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    if (archivo != null && archivo.Length > 0)
-                    {
-                        var rutaAvatar = Path.Combine(_hostingEnvironment.WebRootPath, "json");
-
-                        if (!Directory.Exists(rutaAvatar))
-                        {
-                            Directory.CreateDirectory(rutaAvatar);
-                        }
-
-                        var nombreArchivo = Path.GetRandomFileName() + Path.GetExtension(archivo.FileName);
-                        var rutaCompleta = Path.Combine(rutaAvatar, nombreArchivo);
-
-                        using (var stream = new FileStream(rutaCompleta, FileMode.Create))
-                        {
-                            await archivo.CopyToAsync(stream);
-                        }
-
-                        avatar.Ruta = Path.Combine("json", nombreArchivo);
-                    }
-
-                    _context.Add(avatar);
-                    await _context.SaveChangesAsync();
-
-                    return RedirectToAction(nameof(Index));
+                    await avatar.ArchivoLottieFormFile.CopyToAsync(fileStream);
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error al guardar el archivo: {ex.Message}");
-                    throw;
-                }
+
+                avatar.ArchivoLottie = "/json/" + uniqueFileName;
             }
 
+            _context.Add(avatar);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // GET: Avatars/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Avatares == null)
+            {
+                return NotFound();
+            }
+
+            var avatar = await _context.Avatares.FindAsync(id);
+            if (avatar == null)
+            {
+                return NotFound();
+            }
             return View(avatar);
         }
 
@@ -105,7 +110,7 @@ namespace EventosTestMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ruta")] Avatar avatar)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ArchivoLottie")] Avatar avatar)
         {
             if (id != avatar.Id)
             {

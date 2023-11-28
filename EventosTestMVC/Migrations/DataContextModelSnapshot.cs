@@ -30,7 +30,11 @@ namespace EventosTestMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ruta")
+                    b.Property<string>("ArchivoLottie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -53,7 +57,7 @@ namespace EventosTestMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodigoVestimentas");
+                    b.ToTable("CodigoVestimenta");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.Compra", b =>
@@ -114,10 +118,6 @@ namespace EventosTestMVC.Migrations
 
                     b.Property<int>("CodigoVestimentaId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");

@@ -19,6 +19,24 @@ namespace EventosTestMVC.Controllers
             _context = context;
         }
 
+        //Usuario deprueba
+        private async Task<int> CrearUsuarioTemporal()
+        {
+            var usuarioTemporal = new Usuario
+            {
+                Nombre = "UsuarioTemporal",
+                Apellido = "ApellidoTemporal",
+                Email = "temporal@example.com",
+                Contraseña = "ContraseñaTemporal",
+                AvatarId = 1 // Reemplaza con el ID del avatar que deseas asignar
+            };
+
+            _context.Usuarios.Add(usuarioTemporal);
+            await _context.SaveChangesAsync();
+
+            return usuarioTemporal.Id;
+        }
+
         // GET: Eventoes
         public async Task<IActionResult> Index()
         {
@@ -50,7 +68,7 @@ namespace EventosTestMVC.Controllers
         // GET: Eventoes/Create
         public IActionResult Create()
         {
-            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimentas, "Id", "Nombre");
+            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimenta, "Id", "Nombre");
             ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre");
             return View();
         }
@@ -60,16 +78,18 @@ namespace EventosTestMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Evento evento)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Fecha,Hora,Lugar,Descripcion,ListaCosasLlevar,Clave,UsuarioId,TipoEventoId,CodigoVestimentaId")] Evento evento)
         {
-            
-                _context.Add(evento);
+            // Hardcodear el valor para propósitos de prueba
+            evento.UsuarioId = 1; // Reemplaza con el ID de usuario que deseas usar
+
+            _context.Add(evento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", new { id = evento.Id });
            
-            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimentas, "Id", "Nombre", evento.CodigoVestimentaId);
+            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimenta, "Id", "Nombre", evento.CodigoVestimentaId);
             ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre", evento.TipoEventoId);
-            return RedirectToAction("Index","Home") ;
+            return RedirectToAction("Details","Eventos") ;
         }
 
         // GET: Eventoes/Edit/5
@@ -85,7 +105,7 @@ namespace EventosTestMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimentas, "Id", "Id", evento.CodigoVestimentaId);
+            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimenta, "Id", "Id", evento.CodigoVestimentaId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", evento.UsuarioId);
             ViewData["TipoEventoId"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.TipoEventoId);
             return View(evento);
@@ -123,7 +143,7 @@ namespace EventosTestMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimentas, "Id", "Id", evento.CodigoVestimentaId);
+            ViewData["CodigoVestimentaId"] = new SelectList(_context.CodigoVestimenta, "Id", "Id", evento.CodigoVestimentaId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "Id", evento.UsuarioId);
             ViewData["TipoEventoId"] = new SelectList(_context.TipoEventos, "Id", "Id", evento.TipoEventoId);
             return View(evento);
@@ -173,13 +193,13 @@ namespace EventosTestMVC.Controllers
         {
           return (_context.Eventos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        public async Task<IActionResult> Listas(int id, string tipo, [Bind("Descripcion")] Evento evento)
+        public async Task<IActionResult> Listas(int id, string tipo, [Bind("Descripcion")] Tarea tarea, Compra compra)
         {
             if (ModelState.IsValid)
             {
                 var eventos = await _context.Eventos.FindAsync(id);
 
-                if (evento == null)
+                if (tarea == null && compra == null)
                 {
                     return NotFound();
                 }
@@ -187,13 +207,13 @@ namespace EventosTestMVC.Controllers
                 switch (tipo)
                 {
                     case "tarea":
-                        var tarea = new Tarea { Descripcion = evento.Descripcion, EventoId = id };
-                        _context.Tareas.Add(tarea);
+                        var tareas = new Tarea { Descripcion = tarea.Descripcion, EventoId = id };
+                        _context.Tareas.Add(tareas);
                         break;
 
                     case "compra":
-                        var compra = new Compra { Descripcion = evento.Descripcion, EventoId = id };
-                        _context.Compras.Add(compra);
+                        var compras = new Compra { Descripcion = compra.Descripcion, EventoId = id };
+                        _context.Compras.Add(compras);
                         break;
 
                     default:

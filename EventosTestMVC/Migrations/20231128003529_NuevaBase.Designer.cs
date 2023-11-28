@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231127014736_CodigoVestimenta")]
-    partial class CodigoVestimenta
+    [Migration("20231128003529_NuevaBase")]
+    partial class NuevaBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,11 @@ namespace EventosTestMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Ruta")
+                    b.Property<string>("ArchivoLottie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -56,7 +60,7 @@ namespace EventosTestMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodigoVestimentas");
+                    b.ToTable("CodigoVestimenta");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.Compra", b =>
@@ -117,10 +121,6 @@ namespace EventosTestMVC.Migrations
 
                     b.Property<int>("CodigoVestimentaId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");

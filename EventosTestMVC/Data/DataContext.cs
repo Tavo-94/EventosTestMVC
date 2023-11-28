@@ -16,7 +16,7 @@ namespace EventosTest.Data
         public DbSet<Compra> Compras { get; set; }
         public DbSet<Comprobante> Comprobantes { get; set; }
         public DbSet<Avatar> Avatares { get; set; }
-        public DbSet<CodigoVestimenta> CodigoVestimentas { get; set; }
+        public DbSet<CodigoVestimenta> CodigoVestimenta { get; set; }
         public DbSet<TipoEvento> TipoEventos { get; set; }
 
     }

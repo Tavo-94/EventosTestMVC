@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EventosTestMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class NuevaBD : Migration
+    public partial class NuevaBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,8 @@ namespace EventosTestMVC.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ruta = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArchivoLottie = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,7 +26,7 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CodigoVestimentas",
+                name: "CodigoVestimenta",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,7 +35,7 @@ namespace EventosTestMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CodigoVestimentas", x => x.Id);
+                    table.PrimaryKey("PK_CodigoVestimenta", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +84,6 @@ namespace EventosTestMVC.Migrations
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Hora = table.Column<TimeSpan>(type: "time", nullable: false),
                     Lugar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ListaCosasLlevar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Clave = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: false),
@@ -94,9 +94,9 @@ namespace EventosTestMVC.Migrations
                 {
                     table.PrimaryKey("PK_Eventos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Eventos_CodigoVestimentas_CodigoVestimentaId",
+                        name: "FK_Eventos_CodigoVestimenta_CodigoVestimentaId",
                         column: x => x.CodigoVestimentaId,
-                        principalTable: "CodigoVestimentas",
+                        principalTable: "CodigoVestimenta",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -253,7 +253,7 @@ namespace EventosTestMVC.Migrations
                 name: "Eventos");
 
             migrationBuilder.DropTable(
-                name: "CodigoVestimentas");
+                name: "CodigoVestimenta");
 
             migrationBuilder.DropTable(
                 name: "TipoEventos");

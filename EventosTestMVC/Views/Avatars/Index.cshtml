@@ -13,23 +13,67 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Ruta)
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArchivoLottie)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ruta)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <!-- Usar una clase única para cada contenedor de animación -->
+                    <div class="lottie-container" data-json-path="@item.ArchivoLottie"></div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="row">
+    @foreach (var avatar in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <!-- Puedes personalizar el estilo según tus necesidades -->
+                <div class="card-body">
+                    <div class="lottie-container" data-json-path="@avatar.ArchivoLottie"></div>
+                    <h5 class="card-title">@avatar.Name</h5>
+                    <a asp-action="Select" asp-route-id="@avatar.Id" class="btn btn-primary">Select</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script>
+        document.querySelectorAll('.lottie-container').forEach(function (container) {
+            var jsonPath = container.getAttribute('data-json-path');
+
+            if (jsonPath !== "") {
+                var animation = bodymovin.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: jsonPath
+                });
+            }
+        });
+    </script>
+}
+
