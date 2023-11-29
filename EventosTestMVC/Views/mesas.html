@@ -85,9 +85,11 @@
     <div class="container" style="margin-top: 60px;">
         <div class="row">
             <div class="col-md-6" style="margin-bottom: 50px;">
-                <h3 class="text-center">Total de Mesas</h3>
-                <!-- ... (Resto de tu formulario) ... -->
+                <h3 class="text-center" style="margin-top: 20px;">Total de Mesas</h3>
                 <hr />
+                <p class="text-muted text-center" style="font-size: 15px;">
+                    Aqui puedes ingresar tu cantidad de invitados y la cantidad de sillas por mesa que tengas disponibles, para luego organizar a las personas que quedras poner en cada mesa </p>
+                <hr/>
                 <div class="row"> 
             <div class="col-lg-4">
                 <label for="desc">Total de invitados:</label> 
@@ -123,7 +125,7 @@
              <div class="btn_login text-center" style="margin-block-start: 30px; margin-bottom: 30px;">
                 <div class="d-grid gap-2 ">
                 <button type="submit" name="submit" style= "border-radius: 100px; margin-bottom: 10px;" class="subir btn " onClick="Calc()">CALCULAR</button>
-                <button type="submit" name="submit" style= "border-radius: 100px;  " class="subir btn " onClick="generateForms()">Completar lista de invitados</button>
+                <button type="submit" name="submit" style= "border-radius: 100px;  " class="subir btn " onClick="generateForms()">Organizar asientos de invitados</button>
                 
                 
                 
@@ -136,9 +138,11 @@
             </div>
             <div class="col-md-6 top-0 bottom-0 end-0">
                 <main class="container">
-                    <h3 class="text-center">Cantidad de SillasxMesa</h3>
-                    <!-- ... (Resto de tu otro formulario) ... -->
+                    <h3 class="text-center" style="margin-top: 20px;">Cantidad de SillasxMesa</h3>
                     <hr />
+                    <p class="text-muted text-center" style="font-size: 15px;">
+                        Aqui puedes saber la cantidad de mesas que necesitas, solo necesitas ingresar la cantidad de invitados y sillas por mesa </p>
+                    <hr/>
                 <div class="row"> 
             <div class="col-lg-4">
                 <label for="desc">Total de invitados:</label> 
@@ -262,10 +266,11 @@
             localStorage.setItem("mesasInfo", JSON.stringify(mesasInfo));
             console.log("Datos guardados en localStorage:", mesasInfo);
         }
+
+
+
         function imprimirDesdeLocalStorage() {
             const mesasInfoString = localStorage.getItem("mesasInfo");
-
-
             if (mesasInfoString) {
                 const mesasInfo = JSON.parse(mesasInfoString);
                 console.log("Información de mesas almacenada en localStorage:", mesasInfo);
@@ -310,7 +315,7 @@
  
 
  <!--imprime el form-->
- <section  class=" centrado-vertical-horizontal " style=" margin: 120px;">       
+ <section  class=" centrado-vertical-horizontal " style=" margin-left: 120px; margin-right: 120px; ">       
     <div id="formContainer" class="container-fluid  " >      
         <!-- Los formularios se generarán aquí -->
     </div>
@@ -318,7 +323,7 @@
 
 
 
-    <div class="container" style="max-width: 500px;">
+    <div class="container" style="max-width: 500px; margin-top: 30px;">
         <div class="btn_login text-center" >
             <div class="d-grid gap-2 " >
     <button type="submit" name="submit" style="border-radius: 100px; padding: 15px;" id="btn-login" onClick="guardarEnLocalStorage()">GUARDAR</button>
