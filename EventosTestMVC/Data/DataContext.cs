@@ -10,29 +10,19 @@ namespace EventosTest.Data
         }
 
 
-        //Entities
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<Planner> Planners { get; set; }
-
-        public DbSet<Event> Events { get; set; }
-        public DbSet<EventToUsers> EventsToUsers { get; set; }
+        //Entidades 2.0
+        public DbSet<UsuarioEntity> UsuarioEntities { get; set; }
+        public DbSet<EventoEntity> EventoEntities { get; set; }
+        public DbSet<UsuarioToEvento> UsuarioToEventos { get; set; }
 
         public DbSet<AvatarUser> AvatarUsers { get; set; }
-        public DbSet<AvatarPlanner> AvatarPlanners { get; set; }
-
-        //comments
-        public DbSet<UserComment> UserComments { get; set; }
-        public DbSet<PlannerComment> PlannerComments { get; set; }
-
-        //tags
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categorias { get; set; }
+        public DbSet<Supply> Insumos { get; set; }
+        public DbSet<Tag> Etiquetas { get; set; }
         public DbSet<TagsToEvent> TagsToEvents { get; set; }
+        public DbSet<UserComment> Comentarios { get; set; }
 
 
-        //supply
-        public DbSet<Supply> Supplies { get; set; }
-        public DbSet<Category> Categories { get; set; }
 
     }
 }

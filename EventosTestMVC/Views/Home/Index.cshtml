@@ -1,4 +1,6 @@
-﻿@{
+﻿@model EventosTestMVC.Models.ViewModel.IndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,20 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<form asp-action="DetalleEvento" asp-controller="Evento" method="post">
+    <div class="mb-3">
+        <label asp-for="GuidDeEvento" class="form-label">Ingresa el codigo del evento</label>
+        <input type="text" class="form-control" asp-for="GuidDeEvento">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ir al evento</button>
+</form>
+
+<h1>Crear un evento</h1>
+
+<a class="btn btn-primary" asp-controller="Evento" asp-action="CrearNuevoEvento">Crear un evento</a>
+
+<h1>Editar perfil</h1>
+
+<a class="btn btn-primary" asp-controller="Usuario" asp-action="Editar" asp-route-usuarioEmail="gustavo.mph@gmail.com" >Editar perfil</a>

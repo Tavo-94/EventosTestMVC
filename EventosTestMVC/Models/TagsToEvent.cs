@@ -7,7 +7,7 @@
         public int TagId { get; set; }
 
         //nav props
-        public Event Event { get; set; }
+        public  EventoEntity Evento { get; set; }
         public Tag Tag { get; set; }
     }
 }

@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public string ImageUrl { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UsuarioEntity> Usuario { get; set; }
     }
 }

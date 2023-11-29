@@ -6,7 +6,7 @@
         public string Description { get; set; }
 
         //nav props
-        public ICollection<Event> Events { get; set; }
+        public ICollection<EventoEntity> Eventos { get; set; }
         public ICollection<TagsToEvent> TagEvents { get; set; }
     }
 }

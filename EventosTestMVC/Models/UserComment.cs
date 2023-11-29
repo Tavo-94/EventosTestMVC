@@ -9,7 +9,7 @@
         public Guid? EventId { get; set; }
 
 
-        public User User { get; set; }
-        public Event Event { get; set; }
+        public UsuarioEntity Usuario { get; set; }
+        public EventoEntity Evento { get; set; }
     }
 }

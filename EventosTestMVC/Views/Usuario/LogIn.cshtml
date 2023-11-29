@@ -1,0 +1,29 @@
+﻿@model EventosTestMVC.Models.ViewModel.LogInViewModel
+@{
+}
+
+<div class="container my-5">
+    <div class="row align-items-center justify-content-center h-100">
+        <div class="col-4">
+            <form asp-action="LogIn" asp-controller="Usuario" method="post">
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="Email" required>
+
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" asp-for="Password" id="myInput" required>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary rounded-pill px-5">Login</button>
+
+            </form>
+            <div class="mt-4 text-center" style="font-size: 20px; ">
+                <p>No tenes Cuenta?<a href="@Url.Action("RegisterUser","User", new {showAlert = false})" style="font-weight: bold; color: red;"> Registrate Aqui!!!</a> </p>
+            </div>
+        </div>
+    </div>
+</div>
