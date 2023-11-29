@@ -73,24 +73,37 @@ namespace EventosTestMVC.Controllers
             return View();
         }
 
-        // POST: Eventoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Fecha,Hora,Lugar,Descripcion,ListaCosasLlevar,Clave,UsuarioId,TipoEventoId,CodigoVestimentaId")] Evento evento)
         {
             // Hardcodear el valor para propósitos de prueba
-            evento.UsuarioId = 1; // Reemplaza con el ID de usuario que deseas usar
+            evento.UsuarioId = 2; // Reemplaza con el ID de usuario que deseas usar
 
             _context.Add(evento);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = evento.Id });
-           
-            ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimenta, "Id", "Nombre", evento.CodigoVestimentaId);
-            ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre", evento.TipoEventoId);
-            return RedirectToAction("Details","Eventos") ;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id = evento.Id });
         }
+
+        // POST: Eventoes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Nombre,Fecha,Hora,Lugar,Descripcion,ListaCosasLlevar,Clave,UsuarioId,TipoEventoId,CodigoVestimentaId")] Evento evento)
+        //{
+        //    // Hardcodear el valor para propósitos de prueba
+        //    evento.UsuarioId = 1; // Reemplaza con el ID de usuario que deseas usar
+
+        //    _context.Add(evento);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Details", new { id = evento.Id });
+
+        //    ViewBag.CodigoVestimentaList = new SelectList(_context.CodigoVestimenta, "Id", "Nombre", evento.CodigoVestimentaId);
+        //    ViewBag.TipoEventoList = new SelectList(_context.TipoEventos, "Id", "Nombre", evento.TipoEventoId);
+        //    return RedirectToAction("Details","Eventos") ;
+        //}
 
         // GET: Eventoes/Edit/5
         public async Task<IActionResult> Edit(int? id)

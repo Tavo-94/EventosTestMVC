@@ -12,18 +12,6 @@
 </head>
 <body>
 
-    <nav class="navbar  " id="barra">
-        <!-- ... código de la barra de navegación ... -->
-    </nav>
-
-    <div class="collapse" id="navbarToggleExternalContent">
-        <!-- ... código del contenido externo ... -->
-    </div>
-
-    <nav class="navbar navbar-light bg-light" style="padding:20px;">
-        <!-- ... código de la barra de navegación light ... -->
-    </nav>
-
     <div class="container">
         <div class="col-md-12">
             <div class="row" style="margin-block-start: 55px;">
@@ -32,7 +20,8 @@
                         <div class="card-body text-center">
                             <img src="~/img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                             <h5 class="card-title" style="margin: 5px;font-weight: bold;font-size: 25px;">
-                                @Model.DiasRestantes.ToString("D") días @Model.HorasRestantes.ToString("H") horas @Model.MinutosRestantes.ToString("m") minutos
+                               @Model.DiasRestantes días @Model.HorasRestantes horas @Model.MinutosRestantes minutos
+
                             </h5>
                         </div>
                     </div>

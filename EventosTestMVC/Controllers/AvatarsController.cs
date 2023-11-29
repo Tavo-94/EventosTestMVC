@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using EventosTest.Data;
 using EventosTestMVC.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventosTestMVC.Controllers
 {
+    //[Authorize]
     public class AvatarsController : Controller
     {
         private readonly DataContext _context;
