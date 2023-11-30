@@ -21,6 +21,10 @@ namespace EventosTest.Data
         public DbSet<Tag> Etiquetas { get; set; }
         public DbSet<TagsToEvent> TagsToEvents { get; set; }
         public DbSet<UserComment> Comentarios { get; set; }
+        public DbSet<CodigoVestimenta> CodigoVestimentas { get; set; }
+
+        public DbSet<TipoEvento> TipoEventos { get; set; }
+
 
 
 

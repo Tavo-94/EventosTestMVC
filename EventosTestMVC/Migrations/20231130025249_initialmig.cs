@@ -38,6 +38,19 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodigoVestimentas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodigoVestimentas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Etiquetas",
                 columns: table => new
                 {
@@ -51,18 +64,16 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventoEntities",
+                name: "TipoEventos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaDeEvento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventoEntities", x => x.Id);
+                    table.PrimaryKey("PK_TipoEventos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +97,63 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EventoEntities",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaDeCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaDeEvento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CodigoVestimentaId = table.Column<int>(type: "int", nullable: true),
+                    TipoEventoId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventoEntities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EventoEntities_CodigoVestimentas_CodigoVestimentaId",
+                        column: x => x.CodigoVestimentaId,
+                        principalTable: "CodigoVestimentas",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_EventoEntities_TipoEventos_TipoEventoId",
+                        column: x => x.TipoEventoId,
+                        principalTable: "TipoEventos",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comentarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TextComment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UsuarioEmail = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EventoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_EventoEntities_EventoId",
+                        column: x => x.EventoId,
+                        principalTable: "EventoEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_UsuarioEntities_UsuarioEmail",
+                        column: x => x.UsuarioEmail,
+                        principalTable: "UsuarioEntities",
+                        principalColumn: "Email",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventoEntityTag",
                 columns: table => new
                 {
@@ -106,6 +174,30 @@ namespace EventosTestMVC.Migrations
                         column: x => x.EventosId,
                         principalTable: "EventoEntities",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventoEntityUsuarioEntity",
+                columns: table => new
+                {
+                    EventosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsuariosEmail = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventoEntityUsuarioEntity", x => new { x.EventosId, x.UsuariosEmail });
+                    table.ForeignKey(
+                        name: "FK_EventoEntityUsuarioEntity_EventoEntities_EventosId",
+                        column: x => x.EventosId,
+                        principalTable: "EventoEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventoEntityUsuarioEntity_UsuarioEntities_UsuariosEmail",
+                        column: x => x.UsuariosEmail,
+                        principalTable: "UsuarioEntities",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -165,60 +257,6 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comentarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TextComment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UsuarioEmail = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EventoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comentarios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comentarios_EventoEntities_EventoId",
-                        column: x => x.EventoId,
-                        principalTable: "EventoEntities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Comentarios_UsuarioEntities_UsuarioEmail",
-                        column: x => x.UsuarioEmail,
-                        principalTable: "UsuarioEntities",
-                        principalColumn: "Email",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EventoEntityUsuarioEntity",
-                columns: table => new
-                {
-                    EventosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsuariosEmail = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventoEntityUsuarioEntity", x => new { x.EventosId, x.UsuariosEmail });
-                    table.ForeignKey(
-                        name: "FK_EventoEntityUsuarioEntity_EventoEntities_EventosId",
-                        column: x => x.EventosId,
-                        principalTable: "EventoEntities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventoEntityUsuarioEntity_UsuarioEntities_UsuariosEmail",
-                        column: x => x.UsuariosEmail,
-                        principalTable: "UsuarioEntities",
-                        principalColumn: "Email",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UsuarioToEventos",
                 columns: table => new
                 {
@@ -254,6 +292,16 @@ namespace EventosTestMVC.Migrations
                 name: "IX_Comentarios_UsuarioEmail",
                 table: "Comentarios",
                 column: "UsuarioEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventoEntities_CodigoVestimentaId",
+                table: "EventoEntities",
+                column: "CodigoVestimentaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventoEntities_TipoEventoId",
+                table: "EventoEntities",
+                column: "TipoEventoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EventoEntityTag_TagsId",
@@ -333,6 +381,12 @@ namespace EventosTestMVC.Migrations
 
             migrationBuilder.DropTable(
                 name: "UsuarioEntities");
+
+            migrationBuilder.DropTable(
+                name: "CodigoVestimentas");
+
+            migrationBuilder.DropTable(
+                name: "TipoEventos");
 
             migrationBuilder.DropTable(
                 name: "AvatarUsers");

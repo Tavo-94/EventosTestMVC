@@ -1,13 +1,62 @@
-﻿using EventosTestMVC.Models;
+﻿using EventosTest.Data;
+using EventosTestMVC.Models;
+using EventosTestMVC.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventosTestMVC.Controllers
 {
     public class EventoController : Controller
     {
-        public IActionResult Index()
+
+        private readonly DataContext _dataContext;
+
+        public EventoController(DataContext dataContext)
         {
-            return View();
+            _dataContext = dataContext;
+        }
+
+        public IActionResult Index(Guid idDelEvento)
+        {
+            var userid = HttpContext.Session.GetString("UserLogInId");
+            if (userid == null)
+            {
+                return RedirectToAction("LogIn", "Usuario");
+            }
+
+
+            if (!_dataContext.EventoEntities.Any(e => e.Id == idDelEvento))
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            if (!_dataContext.UsuarioToEventos.Any(e => e.EventoId == idDelEvento && e.UsuarioEmail == userid))
+            {
+                var nuevoInvitado = new UsuarioToEvento();
+                nuevoInvitado.UsuarioEmail = userid;
+                nuevoInvitado.EventoId = idDelEvento;
+                nuevoInvitado.Rol = "Invitado";
+
+                _dataContext.UsuarioToEventos.Add(nuevoInvitado);
+                _dataContext.SaveChanges();
+            }
+
+            var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.UsuarioEmail == userid).Include(e => e.Evento).ThenInclude(e => e.Supplies).FirstOrDefault();
+
+            var viewModel = new DetalleEventoViewModel();
+            viewModel.Evento = evento.Evento;
+            viewModel.Rol = evento.Rol;
+            if (HttpContext.Session.GetString("UserLogInId") != null)
+            {
+                viewModel.UserId = HttpContext.Session.GetString("UserLogInId");
+
+            }
+            else
+            {
+                viewModel.UserId = "vacio";
+            }
+            return View(viewModel);
         }
 
         //continuar implementando
@@ -15,14 +64,52 @@ namespace EventosTestMVC.Controllers
         [HttpPost]
         public IActionResult DetalleEvento(string GuidDeEvento)
         {
-            var Guid = new Guid(GuidDeEvento);
-            return View();
+            if (!Guid.TryParse(GuidDeEvento, out _))
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            var idEvento = new Guid(GuidDeEvento);
+
+            var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idEvento).Include(e => e.Evento).FirstOrDefault();
+
+            HttpContext.Session.SetString("RolEvento", evento.Rol);
+
+            return RedirectToAction("Index", "Evento", new { idDelEvento = idEvento });
         }
 
         public IActionResult CrearNuevoEvento()
         {
+            var viewmodel = new CrearEventoViewModel();
 
-            return View("NuevoEventoForm", new EventoEntity());
+            var userid = HttpContext.Session.GetString("UserLogInId");
+            if (userid == null)
+            {
+                return RedirectToAction("LogIn", "Usuario");
+            }
+
+            viewmodel.usuarioId = userid;
+            return View("NuevoEventoForm", viewmodel);
+        }
+
+        [HttpPost]
+        public IActionResult CrearNuevoEvento(CrearEventoViewModel viewModel)
+        {
+            viewModel.Evento.FechaDeCreacion = DateTime.Now;
+
+            _dataContext.EventoEntities.Add(viewModel.Evento);
+            _dataContext.SaveChanges();
+
+
+            var idinsertado = viewModel.Evento.Id;
+            var modelUsuarioToEventos = new UsuarioToEvento();
+            modelUsuarioToEventos.UsuarioEmail = viewModel.usuarioId;
+            modelUsuarioToEventos.EventoId = idinsertado;
+            modelUsuarioToEventos.Rol = "Planner";
+            _dataContext.UsuarioToEventos.Add(modelUsuarioToEventos);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
