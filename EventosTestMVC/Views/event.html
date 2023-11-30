@@ -9,12 +9,171 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Event</title>
     <link rel="shortcut icon" href="img/logo.png" type="image/png">
+
+
+
+    <script>
+      // Función para guardar la información ingresada en los inputs
+      function guardarInformacion() {
+          // Obtener los valores de los campos
+          var fecha = document.getElementById('fecha').value;
+          var hora = document.getElementById('hora').value;
+          var titulo = document.getElementById('titulo').value;
+          var notas = document.getElementById('notas').value;
+
+          // Validar que los campos no estén vacíos
+          if (!fecha || !hora || !titulo || !notas) {
+              alert("Por favor, completa todos los campos antes de guardar la información.");
+              return;
+          }
+
+          // Crear un objeto que representa la información
+          var informacion = {
+              fecha: fecha,
+              hora: hora,
+              titulo: titulo,
+              notas: notas
+          };
+
+          // Obtener la información existente desde el local storage
+          var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
+
+          // Agregar la nueva información al arreglo
+          informacionGuardada.push(informacion);
+
+          // Guardar el arreglo actualizado en el local storage
+          localStorage.setItem('informacion', JSON.stringify(informacionGuardada));
+
+          // Limpiar los campos después de guardar la información
+          document.getElementById('fecha').value = '';
+          document.getElementById('hora').value = '';
+          document.getElementById('titulo').value = '';
+          document.getElementById('notas').value = '';
+
+          imprimirInformacion();
+      }
+
+
+
+      // Función para imprimir estáticamente la información guardada
+      function imprimirInformacion() {
+          var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
+
+          // Imprimir la información en algún contenedor HTML
+          var resultadoContainer = document.getElementById('resultadoContainer');
+          resultadoContainer.innerHTML = ''; // Limpiar antes de imprimir
+
+          informacionGuardada.forEach(function (informacion, index) {
+              // Crear elementos HTML para mostrar cada conjunto de información
+              var informacionElement = document.createElement('div');
+              informacionElement.className = 'informacion';
+
+
+            
+
+
+              informacionElement.innerHTML = `
+              <hr>
+              
+              
+                  <h4><strong>${informacion.titulo}</strong> </h4>
+                  <p><strong>Fecha:</strong> ${informacion.fecha}</p>
+                  <p><strong>Hora:</strong> ${informacion.hora}</p>
+                  <p><strong>Notas:</strong> ${informacion.notas}</p>
+                  
+              `;
+
+              var deleteButton = document.createElement('button');
+                deleteButton.textContent = 'X';
+                deleteButton.style.backgroundColor = '#4911F7';
+                deleteButton.style.color = '#FCFCFC';
+                deleteButton.style.fontWeight = `500`;
+                deleteButton.style.borderRadius = `35px`;
+
+
+                deleteButton.onclick = function() {
+                    eliminarInformacion(index);
+                };
+                informacionElement.appendChild(deleteButton);
+
+             
+               ;
+             
+
+              // Agregar la información al contenedor
+              resultadoContainer.appendChild(informacionElement);
+
+        
+
+          });
+      }
+
+
+
+
+
+
+
+
+
+      function eliminarInformacion(index) {
+            var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
+            informacionGuardada.splice(index, 1); // Eliminar el elemento en la posición index
+            localStorage.setItem('informacion', JSON.stringify(informacionGuardada));
+
+            // Llamar a imprimirInformacion después de eliminar
+            imprimirInformacion();
+        }
+
+        // Función para editar la información
+        function editarInformacion(index) {
+            var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
+            var informacion = informacionGuardada[index];
+
+            // Puedes implementar la lógica para mostrar un formulario de edición
+            // y llenarlo con la información actual para que el usuario pueda modificarla
+
+            // Por ejemplo, podrías mostrar un cuadro de diálogo modal con los campos y
+            // permitir que el usuario realice cambios, luego guardar los cambios en informacionGuardada
+
+            // Luego, guardar la información actualizada en el local storage
+            localStorage.setItem('informacion', JSON.stringify(informacionGuardada));
+
+            // Llamar a imprimirInformacion después de editar
+            imprimirInformacion();
+        }
+  </script>
 </head>
 <body>
 
-  <!--nav-->
-
-   <!--nav-->
+    <!--nav anfitrion-->
+    <nav class="navbar  " id="barra">
+      <form class="container-fluid justify-content-start text-center">
+  
+      <div class="col-sm-3">
+      <a class="navbar-brand" href="#"  >
+        <button   class="btn btn-outline-white me-2" type="button"  id="menu"  ><img src="img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top" ></button>
+      </a>
+      </div>
+  
+      <div class="col-sm-3">
+        <a class="navbar-brand" href="guests.html"  >
+          <button class="btn btn-outline-white me-2" type="button"  id="menu" ><img src="img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
+        </a></div>
+  
+        <div class="col-sm-3">
+          <a class="navbar-brand" href="fotosyvideos.html"   >
+              <button class="btn btn-outline-white me-2" type="button"  id="menu"  ><img src="img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
+          </a></div>
+  
+        <div class="col-sm-3">
+        <a class="navbar-brand" href="comments.html"  >
+          <button class="btn btn-outline-white me-2" type="button"  id="menu" ><img src="img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
+        </a></div>
+    
+      </form>
+    </nav>
+    <!--nav-->
 
      
 
@@ -50,6 +209,10 @@
             <button id="logout">LOG OUT</button>
           </div>
         </nav>
+
+
+
+        
         <div class="container">
           <div class="col-md-12" >
             <div class="row" style="  margin-block-start: 55px;">
@@ -60,8 +223,34 @@
                     <h5 class="card-title" style="margin: 5px;font-weight: bold;font-size: 25px;">12 dias 7 horas 4 minutos</h5>
                   </div>
                 </div>
+
+
+      
+
+
+<div class="card " style="width: 400px; margin-top: 30px; margin-left: 5px; margin-bottom: 30px;">
+  <div class="card-img-top text-center" height="120px" style="background-color: #4911F7; color: white; padding: 20px;">
+      <h3 ><em>Pendientes</em></h3>
+  </div>
+
+  
+  <div class="card-body">
+       <!-- Contenedor para mostrar la información guardada -->
+       <div id="resultadoContainer"></div>
+    
+       <!-- Llamada a la función para imprimir la información al cargar la página -->
+       <script>
+           imprimirInformacion();
+       </script>
+  </div>
+</div>
+
+
+
               </div>
              
+
+
 
 
 
@@ -81,13 +270,13 @@
             <div class="row">
                 <div class="col">            
                     <div class="form-floating">
-                      <input type="date" class="form-control" id="floatingInputGrid"  >
+                      <input type="date" class="form-control" id="fecha" id="floatingInputGrid"  >
                       <label for="floatingInputGrid">Fecha</label>
                     </div>
                   </div>
                   <div class="col" >
                       <div class="form-floating">
-                          <input type="datetime" class="form-control" id="floatingInputGrid" >
+                          <input type="datetime" class="form-control" id="hora" id="floatingInputGrid" >
                           <label for="floatingInputGrid">Hora</label>
                       </div>
                   </div>
@@ -95,20 +284,25 @@
               </div>
                   <!--titulo-->
               <div class="input-group mb-3">
-                   <input type="text" class="form-control" placeholder="Titulo" aria-label="clave" aria-describedby="basic-addon1">
+                   <input type="text" class="form-control" id="titulo" placeholder="Titulo" aria-label="clave" aria-describedby="basic-addon1">
                </div>
                 <!--Notas-->
                 <div class="form-floating">
-                <textarea class="form-control" placeholder="hola" id="floatingTextarea2" style="height: 100px"></textarea>
+                <textarea class="form-control" placeholder="hola" id="notas" id="floatingTextarea2" style="height: 100px"></textarea>
                  <label for="floatingTextarea2">Notas</label>
                 </div>
                 <br />
                 <div class="btn_login text-center">
                       <div class="d-grid gap-2 ">
-                       <input  type="submit" style= "border-radius: 100px; padding: 5px; " value= "AGREGAR A LA AGENDA"  class= "subir" onclick="valida_envia()"><!--crea identificador del boton-->
+                       <button  type="submit" style= "border-radius: 100px; padding: 5px; "  class= "subir" onclick="guardarInformacion()">AGREGAR A LA AGENDA</button>
                       </div>
                 </div>
                 
+
+
+       
+
+
 
 
 
@@ -120,7 +314,8 @@
 
           </div>
 
-      
+
+
 
 
 
