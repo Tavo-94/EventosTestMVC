@@ -13,7 +13,10 @@ namespace EventosTestMVC.Models
 
         public AvatarUser AvatarUser { get; set; }
 
+        
         public ICollection<EventoEntity> Eventos { get; set; }
         public ICollection<UsuarioToEvento> UsuarioToEventos { get; set; }
+        public ICollection<UserComment> UserComments { get; set; }
+
     }
 }

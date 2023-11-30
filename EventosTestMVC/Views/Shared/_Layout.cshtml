@@ -4,6 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EventosTestMVC</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css"
+          rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EventosTestMVC.styles.css" asp-append-version="true" />
@@ -12,10 +21,104 @@
 </head>
 <body>
     <header>
-        @if (!(Context.Request.Path.Equals("/") || Context.Request.Path.Equals("/Home/Index") || Context.Request.Path.Equals("/Eventos/Create")))
-            {
-            @await Html.PartialAsync("_NavbarLayout")
-            }
+
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D69FF9; opacity: 0.8;">
+            <div class="container-fluid">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img style="width: 55px; height: 55px" class="d-inline-block align-text-top" src="~/img/logo.png" class="text-center " />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav" style="width: 100%; justify-content: space-around;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                Menu
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a asp-controller="Evento" asp-action="Comprobante" class="dropdown-item">Gastos y facturas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Compras</a></li>
+                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Tareas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a asp-controller="Evento" asp-action="Mesas" class="dropdown-item">Mesas</a></li>
+                            </ul>
+                        </li>
+
+                        @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                        }
+
+                        @if (Context.Session.GetString("CodigoEvento") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                @{
+                    if (Context.Session.GetString("UserLogInId") == null)
+                    {
+                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
+                    }
+                }
+            </div>
+        </nav>
+
+@*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventosTestMVC</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+
+                    @{
+                        if (Context.Session.GetString("UserLogInId") == null)
+                        {
+                            <a class="btn btn-primary  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
+                        }
+                    }
+                </div>
+            </div>
+        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -27,8 +130,12 @@
         <div class="container">
             &copy; 2023 - EventosTestMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer> *@
+    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

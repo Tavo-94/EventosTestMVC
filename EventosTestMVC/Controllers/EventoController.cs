@@ -51,6 +51,13 @@ namespace EventosTestMVC.Controllers
                 .ThenInclude(e => e.TipoEvento)
                 .Include(e => e.Evento)
                 .ThenInclude(e => e.CodigoVestimenta)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.UserComments)
+                .ThenInclude(e=> e.Usuario)
+                .FirstOrDefault();
+
+            var creador = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.Rol == "Planner")
+                .Include(e => e.Usuario)
                 .FirstOrDefault();
 
             var viewModel = new DetalleEventoViewModel();
@@ -65,8 +72,30 @@ namespace EventosTestMVC.Controllers
             {
                 viewModel.UserId = "vacio";
             }
-            
+
+            HttpContext.Session.SetString("RolEvento", evento.Rol);
+
+            viewModel.Comentario = new UserComment();
+            viewModel.Comentarios = evento.Evento.UserComments;
+            viewModel.Insumo = new Supply();
+            viewModel.CreadorDelEvento = creador.Usuario;
             return View(viewModel);
+        }
+
+        //agregar comentario
+        public IActionResult InsertarComentario(DetalleEventoViewModel model) {
+
+            var comentario = new UserComment();
+            comentario.PublishDate = DateTime.Now;
+            comentario.UserEmail = HttpContext.Session.GetString("UserLogInId");
+            comentario.EventId = model.Evento.Id;
+            comentario.TextComment = model.Comentario.TextComment;
+            comentario.Evento = _dataContext.EventoEntities.First(c => c.Id == comentario.EventId);
+            comentario.Usuario = _dataContext.UsuarioEntities.First(c => c.Email == comentario.UserEmail);
+
+            _dataContext.Comentarios.Add(comentario);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Evento", new { idDelEvento = comentario.EventId });
         }
 
         //continuar implementando
@@ -84,7 +113,8 @@ namespace EventosTestMVC.Controllers
 
             var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idEvento).Include(e => e.Evento).FirstOrDefault();
 
-            HttpContext.Session.SetString("RolEvento", evento.Rol);
+            HttpContext.Session.SetString("CodigoEvento", GuidDeEvento);
+
 
             return RedirectToAction("Index", "Evento", new { idDelEvento = idEvento });
         }
