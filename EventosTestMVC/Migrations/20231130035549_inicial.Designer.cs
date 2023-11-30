@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231130025325_insertData")]
-    partial class insertData
+    [Migration("20231130035549_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,11 @@ namespace EventosTestMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ArchivoLottie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -103,7 +107,7 @@ namespace EventosTestMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodigoVestimentas");
+                    b.ToTable("CodigoVestimenta");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.EventoEntity", b =>

@@ -1,0 +1,39 @@
+﻿@model EventosTestMVC.Models.AvatarUser
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ArchivoLottieFormFile"></label>
+        <input type="file" asp-for="ArchivoLottieFormFile" class="form-control" />
+        <span asp-validation-for="ArchivoLottieFormFile" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script>
+        // Verifica si Model.ArchivoLottie no es null antes de usarlo
+        var jsonPath = '@(Model?.ArchivoLottie ?? "")';
+
+        if (jsonPath !== "") {
+            var animation = bodymovin.loadAnimation({
+                container: document.getElementById('lottie-container'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: jsonPath
+            });
+        }
+    </script>
+}

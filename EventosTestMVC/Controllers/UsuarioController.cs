@@ -60,20 +60,20 @@ namespace EventosTestMVC.Controllers
         }
 
 
-        public IActionResult Registrar()
-        {
-            RegistroViewModel viewModel = new RegistroViewModel() {
-                Usuario = new UsuarioEntity() { },
-                Avatares = _dataContext.AvatarUsers.Select(a =>
-                        new SelectListItem() {
-                            Text = a.ImageUrl,
-                            Value = a.Id.ToString()
-                        }
-                    ).ToList()
-            };
+        //public IActionResult Registrar()
+        //{
+        //    RegistroViewModel viewModel = new RegistroViewModel() {
+        //        Usuario = new UsuarioEntity() { },
+        //        Avatares = _dataContext.AvatarUsers.Select(a =>
+        //                new SelectListItem() {
+        //                    Text = a.ImageUrl,
+        //                    Value = a.Id.ToString()
+        //                }
+        //            ).ToList()
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
 
         [HttpPost]
@@ -88,25 +88,25 @@ namespace EventosTestMVC.Controllers
 
 
 
-        public IActionResult Editar(string usuarioEmail)
-        {
-            RegistroViewModel viewModel = new RegistroViewModel()
-            {
-                Usuario = _dataContext.UsuarioEntities
-                .Where(u => u.Email == usuarioEmail)
-                .Include(u => u.AvatarUser)
-                .FirstOrDefault(),
-                Avatares = _dataContext.AvatarUsers.Select(a =>
-                        new SelectListItem()
-                        {
-                            Text = a.ImageUrl,
-                            Value = a.Id.ToString()
-                        }
-                    ).ToList()
-            };
+        //public IActionResult Editar(string usuarioEmail)
+        //{
+        //    RegistroViewModel viewModel = new RegistroViewModel()
+        //    {
+        //        Usuario = _dataContext.UsuarioEntities
+        //        .Where(u => u.Email == usuarioEmail)
+        //        .Include(u => u.AvatarUser)
+        //        .FirstOrDefault(),
+        //        Avatares = _dataContext.AvatarUsers.Select(a =>
+        //                new SelectListItem()
+        //                {
+        //                    Text = a.ImageUrl,
+        //                    Value = a.Id.ToString()
+        //                }
+        //            ).ToList()
+        //    };
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
         [HttpPost]
         public IActionResult Editar(RegistroViewModel registroViewModel)

@@ -1,0 +1,73 @@
+﻿@model EventosTestMVC.Models.EventoEntity
+
+@{
+    ViewData["Title"] = "DetalleEvento";
+}
+
+<div class="container">
+    <h1>Detalle del Evento</h1>
+
+    <div class="row" style="margin-top: 55px;">
+        <div class="col-sm-6">
+            <div class="card" id="horayagenda">
+                <div class="card-body text-center">
+                    <img src="~/img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                    <h5 class="card-title" style="margin: 5px; font-weight: bold; font-size: 25px;">
+                        @Model.DiasRestantes días @Model.HorasRestantes horas @Model.MinutosRestantes minutos
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card-body text-center">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <div>
+                                <h5>@Model.Titulo</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">
+                                        Descripción:
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Model.Descripcion
+                                    </dd>
+                                    <dt class="col-sm-4">
+                                        Fecha de Creación:
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Model.FechaDeCreacion
+                                    </dd>
+                                    <dt class="col-sm-4">
+                                        Fecha de Evento:
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Model.FechaDeEvento
+                                    </dd>
+                                    <dt class="col-sm-4">
+                                        Código de Vestimenta:
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Model.CodigoVestimenta.Id
+                                    </dd>
+                                    <dt class="col-sm-4">
+                                        Tipo de Evento:
+                                    </dt>
+                                    <dd class="col-sm-8">
+                                        @Model.TipoEvento.Id
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

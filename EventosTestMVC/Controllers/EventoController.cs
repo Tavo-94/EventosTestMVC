@@ -100,7 +100,7 @@ namespace EventosTestMVC.Controllers
             }
 
             viewmodel.usuarioId = userid;
-            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimentas.Select(c =>
+            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimenta.Select(c =>
                 new SelectListItem() { 
                     Text = c.Nombre,
                     Value = c.Id.ToString()
