@@ -13,21 +13,19 @@
 
 
     <script>
-      // Función para guardar la información ingresada en los inputs
+
       function guardarInformacion() {
-          // Obtener los valores de los campos
           var fecha = document.getElementById('fecha').value;
           var hora = document.getElementById('hora').value;
           var titulo = document.getElementById('titulo').value;
           var notas = document.getElementById('notas').value;
 
-          // Validar que los campos no estén vacíos
+          // Validar 
           if (!fecha || !hora || !titulo || !notas) {
               alert("Por favor, completa todos los campos antes de guardar la información.");
               return;
           }
 
-          // Crear un objeto que representa la información
           var informacion = {
               fecha: fecha,
               hora: hora,
@@ -35,16 +33,13 @@
               notas: notas
           };
 
-          // Obtener la información existente desde el local storage
+ 
           var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
 
-          // Agregar la nueva información al arreglo
           informacionGuardada.push(informacion);
 
-          // Guardar el arreglo actualizado en el local storage
           localStorage.setItem('informacion', JSON.stringify(informacionGuardada));
 
-          // Limpiar los campos después de guardar la información
           document.getElementById('fecha').value = '';
           document.getElementById('hora').value = '';
           document.getElementById('titulo').value = '';
@@ -55,11 +50,11 @@
 
 
 
-      // Función para imprimir estáticamente la información guardada
+
       function imprimirInformacion() {
           var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
 
-          // Imprimir la información en algún contenedor HTML
+
           var resultadoContainer = document.getElementById('resultadoContainer');
           resultadoContainer.innerHTML = ''; // Limpiar antes de imprimir
 
@@ -100,20 +95,12 @@
                ;
              
 
-              // Agregar la información al contenedor
               resultadoContainer.appendChild(informacionElement);
 
         
 
           });
       }
-
-
-
-
-
-
-
 
 
       function eliminarInformacion(index) {
@@ -125,60 +112,13 @@
             imprimirInformacion();
         }
 
-        // Función para editar la información
-        function editarInformacion(index) {
-            var informacionGuardada = JSON.parse(localStorage.getItem('informacion')) || [];
-            var informacion = informacionGuardada[index];
-
-            // Puedes implementar la lógica para mostrar un formulario de edición
-            // y llenarlo con la información actual para que el usuario pueda modificarla
-
-            // Por ejemplo, podrías mostrar un cuadro de diálogo modal con los campos y
-            // permitir que el usuario realice cambios, luego guardar los cambios en informacionGuardada
-
-            // Luego, guardar la información actualizada en el local storage
-            localStorage.setItem('informacion', JSON.stringify(informacionGuardada));
-
-            // Llamar a imprimirInformacion después de editar
-            imprimirInformacion();
-        }
+    
   </script>
 </head>
 <body>
 
-    <!--nav anfitrion-->
-    <nav class="navbar  " id="barra">
-      <form class="container-fluid justify-content-start text-center">
-  
-      <div class="col-sm-3">
-      <a class="navbar-brand" href="#"  >
-        <button   class="btn btn-outline-white me-2" type="button"  id="menu"  ><img src="img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top" ></button>
-      </a>
-      </div>
-  
-      <div class="col-sm-3">
-        <a class="navbar-brand" href="guests.html"  >
-          <button class="btn btn-outline-white me-2" type="button"  id="menu" ><img src="img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-        </a></div>
-  
-        <div class="col-sm-3">
-          <a class="navbar-brand" href="fotosyvideos.html"   >
-              <button class="btn btn-outline-white me-2" type="button"  id="menu"  ><img src="img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-          </a></div>
-  
-        <div class="col-sm-3">
-        <a class="navbar-brand" href="comments.html"  >
-          <button class="btn btn-outline-white me-2" type="button"  id="menu" ><img src="img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top"></button>
-        </a></div>
-    
-      </form>
-    </nav>
-    <!--nav-->
 
-     
 
-       
-        
         <div class="collapse" id="navbarToggleExternalContent" >
           <div class="bg-light p-4 " >
             <h5 class=" h4">Presupuesto</h5>
