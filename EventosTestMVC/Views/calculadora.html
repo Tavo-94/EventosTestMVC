@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... (Tus encabezados) ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -15,8 +14,6 @@
     
     <script>
         
-
-        // Function to calculate the total weight
         function calcularPeso() {
             var cantidadPersonas = parseFloat(document.getElementById('cantidadPersonas').value);
 
@@ -34,11 +31,11 @@
                 document.getElementById('resultadoKilogramos').value = pesoTotalGramos.toFixed(2) + ' kg';
             }
 
-            // Save the data to localStorage
+            // guarda
             saveDataToLocalStorage(nombreViver, seleccion, pesoTotalGramos, pesoTotalKilogramos);
         }
 
-        // Function to save data to localStorage
+   
         function saveDataToLocalStorage(nombreViver, seleccion, pesoGramos, resultadoKilogramos) {
             var data = {
                 'NombreViver': nombreViver,
@@ -47,28 +44,23 @@
                 'ResultadoKilogramos': resultadoKilogramos
             };
 
-            // Retrieve existing data from localStorage
+
             var existingData = JSON.parse(localStorage.getItem('viveresData')) || [];
 
-            // Add the new data to the array
             existingData.push(data);
 
-            // Save the updated array back to localStorage
             localStorage.setItem('viveresData', JSON.stringify(existingData));
 
-            // Display the saved data
             displaySavedData();
         }
 
-        // Function to display saved data
+
         function displaySavedData() {
             var savedDataContainer = document.getElementById('savedDataContainer');
             savedDataContainer.innerHTML = '';
 
-            // Retrieve data from localStorage
             var data = JSON.parse(localStorage.getItem('viveresData'));
 
-            // Display the data
             if (data && data.length > 0) {
                 var ul = document.createElement('ul');
                 data.forEach(function (item) {
@@ -80,7 +72,6 @@
             }
         }
 
-        // Call displaySavedData on page load
         window.onload = function () {
             displaySavedData();
         };
