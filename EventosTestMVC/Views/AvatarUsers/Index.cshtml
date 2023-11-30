@@ -22,21 +22,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <!-- Usar una clase única para cada contenedor de animación -->
                     <div class="lottie-container" data-json-path="@item.ArchivoLottie"></div>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -44,14 +46,34 @@
     @foreach (var avatar in Model)
     {
         <div class="col-md-3 mb-4">
-            <div class="card">
-                <!-- Puedes personalizar el estilo según tus necesidades -->
-                <div class="card-body">
-                    <div class="lottie-container" data-json-path="@avatar.ArchivoLottie"></div>
-                    <h5 class="card-title">@avatar.Name</h5>
-                    <a asp-action="Select" asp-route-id="@avatar.Id" class="btn btn-primary">Select</a>
+            <a asp-action="Select" asp-route-id="@avatar.Id" class="card-link d-block">
+                <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
+                    <!-- Puedes personalizar el estilo según tus necesidades -->
+                    <div class="card-body">
+                        <div class="lottie-container" data-json-path="@avatar.ArchivoLottie"></div>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     }
 </div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script>
+        document.querySelectorAll('.lottie-container').forEach(function (container) {
+            var jsonPath = container.getAttribute('data-json-path');
+
+            if (jsonPath !== "") {
+                var animation = bodymovin.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: jsonPath
+                });
+            }
+        });
+    </script>
+}
+

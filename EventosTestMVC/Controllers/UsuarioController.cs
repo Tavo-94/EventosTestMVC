@@ -81,13 +81,12 @@ namespace EventosTestMVC.Controllers
         {
             UsuarioEntity nuevoUsuario = registroViewModel.Usuario;
 
+            nuevoUsuario.AvatarUserId = 12;
+
             _dataContext.UsuarioEntities.Add(nuevoUsuario);
             _dataContext.SaveChanges();
             return RedirectToAction("Index","Home");
         }
-
-
-
         //public IActionResult Editar(string usuarioEmail)
         //{
         //    RegistroViewModel viewModel = new RegistroViewModel()

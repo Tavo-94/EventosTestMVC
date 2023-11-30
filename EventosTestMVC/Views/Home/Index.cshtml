@@ -23,12 +23,12 @@
                                     <input type="text" class="form-control" placeholder="Ingresa la clave" asp-for="GuidDeEvento">
                                 </div>
                                 <div class="d-grid gap-2 d-md-flex justify-content-lg-center " style="margin-top: 30px;">
-                                    <button href="registro.html" class="btn" type="button" style="margin-bottom: 10px;" id="boton">REGISTRO</button>
+                                <a asp-action="Registrar" asp-controller="Usuario" class="btn" type="button" style="margin-bottom: 10px;">REGISTRO</a>
                                     <button class="btn" type="button" style="margin-bottom: 10px;" id="boton">ENTRAR</button>
                                 </div>
                                 <div class="text-center">
                                     <small style="margin-right: 8px;">Si ya estás registrado</small>
-                                    <a href="login.html" class="text-white">LogIn</a>
+                                <a asp-action="LogIn" asp-controller="Usuario" class="text-white">LogIn</a>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
 
         <h1>Editar perfil</h1>
 
-        <a class="btn btn-primary" asp-controller="Usuario" asp-action="Editar" asp-route-usuarioEmail="gustavo.mph@gmail.com">Editar perfil</a>
+        <a class="btn btn-primary" asp-controller="Usuario" asp-action="Editar">Editar perfil</a>
         <p>
             <a asp-action="Index" asp-controller="AvatarUsers" class="btn btn-primary">Lista Avatar</a>
 

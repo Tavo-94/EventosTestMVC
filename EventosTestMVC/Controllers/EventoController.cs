@@ -91,6 +91,7 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult CrearNuevoEvento()
         {
+
             var viewmodel = new CrearEventoViewModel();
 
             var userid = HttpContext.Session.GetString("UserLogInId");

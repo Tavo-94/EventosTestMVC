@@ -58,18 +58,18 @@ namespace EventosTestMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ArchivoLottie")] AvatarUser avatarUser)
+        public async Task<IActionResult> Create([Bind("Id,Name,ArchivoLottie")] AvatarUser avatarUser, IFormFile ArchivoLottieFormFile)
         {
             // Guarda el archivo JSON Lottie en la carpeta ~/json
-            if (avatarUser.ArchivoLottieFormFile != null)
+            if (ArchivoLottieFormFile != null)
             {
                 var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "json");
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + avatarUser.ArchivoLottieFormFile.FileName;
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + ArchivoLottieFormFile.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    await avatarUser.ArchivoLottieFormFile.CopyToAsync(fileStream);
+                    await ArchivoLottieFormFile.CopyToAsync(fileStream);
                 }
 
                 avatarUser.ArchivoLottie = "/json/" + uniqueFileName;

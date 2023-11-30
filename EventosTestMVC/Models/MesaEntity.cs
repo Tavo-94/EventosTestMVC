@@ -1,8 +1,11 @@
-﻿namespace EventosTestMVC.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EventosTestMVC.Models
 {
     public class MesaEntity
     {
-        public int Numero { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Descripcion { get; set; }
         // Clave foránea
         public int EventoId { get; set; }
