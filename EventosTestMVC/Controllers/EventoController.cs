@@ -2,7 +2,9 @@
 using EventosTestMVC.Models;
 using EventosTestMVC.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Eventing.Reader;
 
 namespace EventosTestMVC.Controllers
 {
@@ -42,7 +44,14 @@ namespace EventosTestMVC.Controllers
                 _dataContext.SaveChanges();
             }
 
-            var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.UsuarioEmail == userid).Include(e => e.Evento).ThenInclude(e => e.Supplies).FirstOrDefault();
+            var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.UsuarioEmail == userid)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.Supplies)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.TipoEvento)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.CodigoVestimenta)
+                .FirstOrDefault();
 
             var viewModel = new DetalleEventoViewModel();
             viewModel.Evento = evento.Evento;
@@ -56,6 +65,7 @@ namespace EventosTestMVC.Controllers
             {
                 viewModel.UserId = "vacio";
             }
+            
             return View(viewModel);
         }
 
@@ -90,6 +100,18 @@ namespace EventosTestMVC.Controllers
             }
 
             viewmodel.usuarioId = userid;
+            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimentas.Select(c =>
+                new SelectListItem() { 
+                    Text = c.Nombre,
+                    Value = c.Id.ToString()
+                }).ToList();
+
+            viewmodel.TipoDeEvento = _dataContext.TipoEventos.Select(c =>
+                new SelectListItem()
+                {
+                    Text = c.Nombre,
+                    Value = c.Id.ToString()
+                }).ToList();
             return View("NuevoEventoForm", viewmodel);
         }
 

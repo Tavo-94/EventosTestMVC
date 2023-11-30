@@ -38,10 +38,14 @@
                 <input class="form-control" asp-for="@Model.Usuario.Password">
                 <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
                 </div> *@
-@*                 <select asp-for="@Model.Usuario.AvatarUserId" asp-items="@Model.Avatares" class="form-select">
+                <select asp-for="@Model.Evento.TipoEventoId" asp-items="@Model.TipoDeEvento" class="form-select">
                     <option selected disabled>--- Seleccionar ---</option>
 
-                </select> *@
+                </select>
+                <select asp-for="@Model.Evento.CodigoVestimentaId" asp-items="@Model.CodigoDeVestimenta" class="form-select">
+                    <option selected disabled>--- Seleccionar ---</option>
+
+                </select>
 
                 <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Registrar</button>
             </form>

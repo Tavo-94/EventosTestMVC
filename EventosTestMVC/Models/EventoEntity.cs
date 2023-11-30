@@ -14,6 +14,8 @@
         public int? TipoEventoId { get; set; }
 
         //hora de evento
+
+
         //tipo de evento
         //comprobante
 
@@ -37,5 +39,34 @@
         //nav codigo de TipoEvento
         public TipoEvento TipoEvento { get; set; }
 
+
+
+
+        public int DiasRestantes
+        {
+            get
+            {
+                TimeSpan tiempoRestante = FechaDeEvento - DateTime.Now;
+                return tiempoRestante.Days;
+            }
+        }
+
+        public int HorasRestantes
+        {
+            get
+            {
+                TimeSpan tiempoRestante = FechaDeEvento - DateTime.Now;
+                return tiempoRestante.Hours;
+            }
+        }
+
+        public int MinutosRestantes
+        {
+            get
+            {
+                TimeSpan tiempoRestante = FechaDeEvento - DateTime.Now;
+                return tiempoRestante.Minutes;
+            }
+        }
     }
 }
