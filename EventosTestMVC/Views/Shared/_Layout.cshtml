@@ -21,7 +21,75 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D69FF9; opacity: 0.8;">
+            <div class="container-fluid">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img style="width: 55px; height: 55px" class="d-inline-block align-text-top" src="~/img/logo.png" class="text-center " />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav" style="width: 100%; justify-content: space-around;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                Menu
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a asp-controller="Evento" asp-action="Comprobante" class="dropdown-item">Gastos y facturas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Compras</a></li>
+                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Tareas</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a asp-controller="Evento" asp-action="Mesas" class="dropdown-item">Mesas</a></li>
+                            </ul>
+                        </li>
+
+                        @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/invitados.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                        }
+
+                        @if (Context.Session.GetString("CodigoEvento") != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                @{
+                    if (Context.Session.GetString("UserLogInId") == null)
+                    {
+                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
+                    }
+                }
+            </div>
+        </nav>
+
+@*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventosTestMVC</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -50,7 +118,7 @@
                     }
                 </div>
             </div>
-        </nav>
+        </nav> *@
     </header>
     <div class="container">
         <main role="main" class="pb-3">

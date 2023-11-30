@@ -56,6 +56,10 @@ namespace EventosTestMVC.Controllers
                 .ThenInclude(e=> e.Usuario)
                 .FirstOrDefault();
 
+            var creador = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.Rol == "Planner")
+                .Include(e => e.Usuario)
+                .FirstOrDefault();
+
             var viewModel = new DetalleEventoViewModel();
             viewModel.Evento = evento.Evento;
             viewModel.Rol = evento.Rol;
@@ -69,9 +73,12 @@ namespace EventosTestMVC.Controllers
                 viewModel.UserId = "vacio";
             }
 
+            HttpContext.Session.SetString("RolEvento", evento.Rol);
+
             viewModel.Comentario = new UserComment();
             viewModel.Comentarios = evento.Evento.UserComments;
-
+            viewModel.Insumo = new Supply();
+            viewModel.CreadorDelEvento = creador.Usuario;
             return View(viewModel);
         }
 
@@ -106,7 +113,8 @@ namespace EventosTestMVC.Controllers
 
             var evento = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idEvento).Include(e => e.Evento).FirstOrDefault();
 
-            HttpContext.Session.SetString("RolEvento", evento.Rol);
+            HttpContext.Session.SetString("CodigoEvento", GuidDeEvento);
+
 
             return RedirectToAction("Index", "Evento", new { idDelEvento = idEvento });
         }
