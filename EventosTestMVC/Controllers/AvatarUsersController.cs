@@ -56,29 +56,29 @@ namespace EventosTestMVC.Controllers
         // POST: AvatarUsers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ArchivoLottie")] AvatarUser avatarUser, IFormFile ArchivoLottieFormFile)
-        {
-            // Guarda el archivo JSON Lottie en la carpeta ~/json
-            if (ArchivoLottieFormFile != null)
-            {
-                var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "json");
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + ArchivoLottieFormFile.FileName;
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,Name,ArchivoLottie")] AvatarUser avatarUser, IFormFile ArchivoLottieFormFile)
+        //{
+        //    // Guarda el archivo JSON Lottie en la carpeta ~/json
+        //    if (ArchivoLottieFormFile != null)
+        //    {
+        //        var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "json");
+        //        var uniqueFileName = Guid.NewGuid().ToString() + "_" + ArchivoLottieFormFile.FileName;
+        //        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await ArchivoLottieFormFile.CopyToAsync(fileStream);
-                }
+        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            await ArchivoLottieFormFile.CopyToAsync(fileStream);
+        //        }
 
-                avatarUser.ArchivoLottie = "/json/" + uniqueFileName;
-            }
+        //        avatarUser.ArchivoLottie = "/json/" + uniqueFileName;
+        //    }
 
-            _context.Add(avatarUser);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    _context.Add(avatarUser);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
         public IActionResult SelectAvatar()
         {
             var avatars = _context.AvatarUsers.ToList(); // Reemplaza con tu lógica para obtener la lista de avatares

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EventosTestMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -155,6 +155,27 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompraEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventoId = table.Column<int>(type: "int", nullable: false),
+                    EventoId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompraEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompraEntity_EventoEntities_EventoId1",
+                        column: x => x.EventoId1,
+                        principalTable: "EventoEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventoEntityTag",
                 columns: table => new
                 {
@@ -231,6 +252,27 @@ namespace EventosTestMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MesaEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventoId = table.Column<int>(type: "int", nullable: false),
+                    EventoId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MesaEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MesaEntity_EventoEntities_EventoId1",
+                        column: x => x.EventoId1,
+                        principalTable: "EventoEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TagsToEvents",
                 columns: table => new
                 {
@@ -252,6 +294,27 @@ namespace EventosTestMVC.Migrations
                     table.ForeignKey(
                         name: "FK_TagsToEvents_EventoEntities_EventoId",
                         column: x => x.EventoId,
+                        principalTable: "EventoEntities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TareaEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventoId = table.Column<int>(type: "int", nullable: false),
+                    EventoId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TareaEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TareaEntity_EventoEntities_EventoId1",
+                        column: x => x.EventoId1,
                         principalTable: "EventoEntities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -295,6 +358,11 @@ namespace EventosTestMVC.Migrations
                 column: "UsuarioEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompraEntity_EventoId1",
+                table: "CompraEntity",
+                column: "EventoId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EventoEntities_CodigoVestimentaId",
                 table: "EventoEntities",
                 column: "CodigoVestimentaId");
@@ -325,6 +393,11 @@ namespace EventosTestMVC.Migrations
                 column: "EventoEntityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MesaEntity_EventoId1",
+                table: "MesaEntity",
+                column: "EventoId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TagsToEvents_EventoId",
                 table: "TagsToEvents",
                 column: "EventoId");
@@ -333,6 +406,11 @@ namespace EventosTestMVC.Migrations
                 name: "IX_TagsToEvents_TagId",
                 table: "TagsToEvents",
                 column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TareaEntity_EventoId1",
+                table: "TareaEntity",
+                column: "EventoId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsuarioEntities_AvatarUserId",
@@ -357,6 +435,9 @@ namespace EventosTestMVC.Migrations
                 name: "Comentarios");
 
             migrationBuilder.DropTable(
+                name: "CompraEntity");
+
+            migrationBuilder.DropTable(
                 name: "EventoEntityTag");
 
             migrationBuilder.DropTable(
@@ -366,7 +447,13 @@ namespace EventosTestMVC.Migrations
                 name: "Insumos");
 
             migrationBuilder.DropTable(
+                name: "MesaEntity");
+
+            migrationBuilder.DropTable(
                 name: "TagsToEvents");
+
+            migrationBuilder.DropTable(
+                name: "TareaEntity");
 
             migrationBuilder.DropTable(
                 name: "UsuarioToEventos");

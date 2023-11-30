@@ -15,9 +15,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArchivoLottie)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -27,10 +24,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <!-- Usar una clase única para cada contenedor de animación -->
-                    <div class="lottie-container" data-json-path="@item.ArchivoLottie"></div>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -50,7 +43,7 @@
                 <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
                     <!-- Puedes personalizar el estilo según tus necesidades -->
                     <div class="card-body">
-                        <div class="lottie-container" data-json-path="@avatar.ArchivoLottie"></div>
+                        <div class="lottie-container" data-json-path="@avatar.Name"></div>
                     </div>
                 </div>
             </a>

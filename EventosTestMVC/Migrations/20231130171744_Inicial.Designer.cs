@@ -4,6 +4,7 @@ using EventosTest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231130171744_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,11 +63,11 @@ namespace EventosTestMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ArchivoLottie")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RutaJson")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -107,6 +110,31 @@ namespace EventosTestMVC.Migrations
                     b.ToTable("CodigoVestimenta");
                 });
 
+            modelBuilder.Entity("EventosTestMVC.Models.CompraEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EventoId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId1");
+
+                    b.ToTable("CompraEntity");
+                });
+
             modelBuilder.Entity("EventosTestMVC.Models.EventoEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -140,6 +168,31 @@ namespace EventosTestMVC.Migrations
                     b.HasIndex("TipoEventoId");
 
                     b.ToTable("EventoEntities");
+                });
+
+            modelBuilder.Entity("EventosTestMVC.Models.MesaEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EventoId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId1");
+
+                    b.ToTable("MesaEntity");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.Supply", b =>
@@ -216,6 +269,31 @@ namespace EventosTestMVC.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("TagsToEvents");
+                });
+
+            modelBuilder.Entity("EventosTestMVC.Models.TareaEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EventoId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId1");
+
+                    b.ToTable("TareaEntity");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.TipoEvento", b =>
@@ -357,6 +435,17 @@ namespace EventosTestMVC.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EventosTestMVC.Models.CompraEntity", b =>
+                {
+                    b.HasOne("EventosTestMVC.Models.EventoEntity", "Evento")
+                        .WithMany("Compras")
+                        .HasForeignKey("EventoId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
+                });
+
             modelBuilder.Entity("EventosTestMVC.Models.EventoEntity", b =>
                 {
                     b.HasOne("EventosTestMVC.Models.CodigoVestimenta", "CodigoVestimenta")
@@ -370,6 +459,17 @@ namespace EventosTestMVC.Migrations
                     b.Navigation("CodigoVestimenta");
 
                     b.Navigation("TipoEvento");
+                });
+
+            modelBuilder.Entity("EventosTestMVC.Models.MesaEntity", b =>
+                {
+                    b.HasOne("EventosTestMVC.Models.EventoEntity", "Evento")
+                        .WithMany("Mesas")
+                        .HasForeignKey("EventoId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.Supply", b =>
@@ -406,6 +506,17 @@ namespace EventosTestMVC.Migrations
                     b.Navigation("Evento");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("EventosTestMVC.Models.TareaEntity", b =>
+                {
+                    b.HasOne("EventosTestMVC.Models.EventoEntity", "Evento")
+                        .WithMany("Tareas")
+                        .HasForeignKey("EventoId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
                 });
 
             modelBuilder.Entity("EventosTestMVC.Models.UserComment", b =>
@@ -472,9 +583,15 @@ namespace EventosTestMVC.Migrations
 
             modelBuilder.Entity("EventosTestMVC.Models.EventoEntity", b =>
                 {
+                    b.Navigation("Compras");
+
+                    b.Navigation("Mesas");
+
                     b.Navigation("Supplies");
 
                     b.Navigation("TagEvents");
+
+                    b.Navigation("Tareas");
 
                     b.Navigation("UserComments");
 

@@ -40,9 +40,6 @@
         public TipoEvento TipoEvento { get; set; }
 
         //funciones con javascript
-        public List<MesaEntity> Mesas { get; set; }
-        public List<TareaEntity> Tareas { get; set; }
-        public List<CompraEntity> Compras { get; set; }
 
         public int DiasRestantes
         {

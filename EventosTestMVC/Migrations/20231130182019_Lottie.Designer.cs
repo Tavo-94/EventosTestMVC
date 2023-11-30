@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<<< HEAD:EventosTestMVC/Migrations/20231130035549_inicial.Designer.cs
-    [Migration("20231130035549_inicial")]
-    partial class inicial
-========
-    [Migration("20231130035139_insertcosas")]
-    partial class insertcosas
->>>>>>>> 99709b53c84d4df451eb76072349195208ebf234:EventosTestMVC/Migrations/20231130035139_insertcosas.Designer.cs
+    [Migration("20231130182019_Lottie")]
+    partial class Lottie
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,10 +62,6 @@ namespace EventosTestMVC.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ArchivoLottie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

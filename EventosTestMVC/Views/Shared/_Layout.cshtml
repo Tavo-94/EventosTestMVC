@@ -32,22 +32,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav" style="width: 100%; justify-content: space-around;">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                                Menu
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a asp-controller="Evento" asp-action="Comprobante" class="dropdown-item">Gastos y facturas</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Compras</a></li>
-                                <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Tareas</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a asp-controller="Evento" asp-action="Mesas" class="dropdown-item">Mesas</a></li>
-                            </ul>
-                        </li>
+                        
 
                         @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
                         {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                    Menu
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a asp-controller="Evento" asp-action="Comprobante" class="dropdown-item">Gastos y facturas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Compras</a></li>
+                                    <li><a asp-controller="Evento" asp-action="Listas" class="dropdown-item">Tareas</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a asp-controller="Evento" asp-action="Mesas" class="dropdown-item">Mesas</a></li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
@@ -126,7 +127,8 @@
         </main>
     </div>
 
-@*     <footer class="border-top footer text-muted">
+
+    @*  <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - EventosTestMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -138,6 +140,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false) *@
+    
 </body>
 </html>

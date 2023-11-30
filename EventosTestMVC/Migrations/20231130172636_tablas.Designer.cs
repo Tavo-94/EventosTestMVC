@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<<< HEAD:EventosTestMVC/Migrations/20231130035640_tablas.Designer.cs
-    [Migration("20231130035640_tablas")]
+    [Migration("20231130172636_tablas")]
     partial class tablas
-========
-    [Migration("20231130035101_initialmig")]
-    partial class initialmig
->>>>>>>> 99709b53c84d4df451eb76072349195208ebf234:EventosTestMVC/Migrations/20231130035101_initialmig.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

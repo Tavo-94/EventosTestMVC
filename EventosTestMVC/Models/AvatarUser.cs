@@ -6,10 +6,8 @@ namespace EventosTestMVC.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ArchivoLottie { get; set; }
+        public string RutaJson { get; set; }
 
         public ICollection<UsuarioEntity> Usuario { get; set; }
-        [NotMapped]
-        public IFormFile ArchivoLottieFormFile { get; set; }
     }
 }
