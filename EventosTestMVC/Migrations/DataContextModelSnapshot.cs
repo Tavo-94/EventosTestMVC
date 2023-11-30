@@ -413,7 +413,7 @@ namespace EventosTestMVC.Migrations
                         .IsRequired();
 
                     b.HasOne("EventosTestMVC.Models.UsuarioEntity", "Usuario")
-                        .WithMany()
+                        .WithMany("UserComments")
                         .HasForeignKey("UsuarioEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -489,6 +489,8 @@ namespace EventosTestMVC.Migrations
 
             modelBuilder.Entity("EventosTestMVC.Models.UsuarioEntity", b =>
                 {
+                    b.Navigation("UserComments");
+
                     b.Navigation("UsuarioToEventos");
                 });
 #pragma warning restore 612, 618

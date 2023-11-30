@@ -5,7 +5,7 @@
 namespace EventosTestMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class insertData : Migration
+    public partial class insertcosas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,6 @@ values: new object[,]
 { 8, "Piyamada" },
 { 9, "Fiesta" }
    });
-
         }
 
         /// <inheritdoc />

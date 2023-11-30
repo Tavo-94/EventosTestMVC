@@ -51,6 +51,9 @@ namespace EventosTestMVC.Controllers
                 .ThenInclude(e => e.TipoEvento)
                 .Include(e => e.Evento)
                 .ThenInclude(e => e.CodigoVestimenta)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.UserComments)
+                .ThenInclude(e=> e.Usuario)
                 .FirstOrDefault();
 
             var viewModel = new DetalleEventoViewModel();
@@ -65,8 +68,27 @@ namespace EventosTestMVC.Controllers
             {
                 viewModel.UserId = "vacio";
             }
-            
+
+            viewModel.Comentario = new UserComment();
+            viewModel.Comentarios = evento.Evento.UserComments;
+
             return View(viewModel);
+        }
+
+        //agregar comentario
+        public IActionResult InsertarComentario(DetalleEventoViewModel model) {
+
+            var comentario = new UserComment();
+            comentario.PublishDate = DateTime.Now;
+            comentario.UserEmail = HttpContext.Session.GetString("UserLogInId");
+            comentario.EventId = model.Evento.Id;
+            comentario.TextComment = model.Comentario.TextComment;
+            comentario.Evento = _dataContext.EventoEntities.First(c => c.Id == comentario.EventId);
+            comentario.Usuario = _dataContext.UsuarioEntities.First(c => c.Email == comentario.UserEmail);
+
+            _dataContext.Comentarios.Add(comentario);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Evento", new { idDelEvento = comentario.EventId });
         }
 
         //continuar implementando

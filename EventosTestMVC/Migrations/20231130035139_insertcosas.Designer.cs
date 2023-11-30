@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventosTestMVC.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231130025249_initialmig")]
-    partial class initialmig
+    [Migration("20231130035139_insertcosas")]
+    partial class insertcosas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -416,7 +416,7 @@ namespace EventosTestMVC.Migrations
                         .IsRequired();
 
                     b.HasOne("EventosTestMVC.Models.UsuarioEntity", "Usuario")
-                        .WithMany()
+                        .WithMany("UserComments")
                         .HasForeignKey("UsuarioEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -492,6 +492,8 @@ namespace EventosTestMVC.Migrations
 
             modelBuilder.Entity("EventosTestMVC.Models.UsuarioEntity", b =>
                 {
+                    b.Navigation("UserComments");
+
                     b.Navigation("UsuarioToEventos");
                 });
 #pragma warning restore 612, 618
