@@ -1,0 +1,59 @@
+﻿<style>
+    #preview {
+        max-width: 100%;
+        max-height: 300px;
+        margin-top: 20px;
+    }
+</style>
+
+    <div class="container text-center" style="margin-top: 40px;">
+        <h2>Subir Archivos</h2>
+
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" accept="image/*" onchange="previewImage()" required>
+            </br>
+            <button class="subir" style="margin-top: 30px;" type="button" onclick="uploadImage()">Subir Imagen</button>
+        </form>
+
+        <div id="previewContainer" style="margin-top: 50px;">
+            <h3>Fotos y videos subidos:</h3>
+            <img id="preview" alt="">
+        </div>
+
+        <script>
+            function previewImage() {
+                const fileInput = document.getElementById('fileInput');
+                const preview = document.getElementById('preview');
+                const previewContainer = document.getElementById('previewContainer');
+
+                const file = fileInput.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        previewContainer.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = '';
+                    previewContainer.style.display = 'none';
+                }
+            }
+
+            function uploadImage() {
+                const fileInput = document.getElementById('fileInput');
+                const file = fileInput.files[0];
+
+                if (file) {
+                    // Aquí puedes enviar la imagen al servidor usando AJAX o realizar otras operaciones según tus necesidades.
+                    // Por ejemplo, puedes usar la API Fetch para enviar la imagen a un servidor.
+                    // Aquí se muestra solo un mensaje de alerta como ejemplo.
+                    alert('Imagen subida con éxito');
+                } else {
+                    alert('Por favor, seleccione una imagen antes de intentar subir');
+                }
+            }
+        </script>

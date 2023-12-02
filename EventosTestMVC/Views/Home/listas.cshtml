@@ -1,0 +1,108 @@
+
+
+
+        <!--contenedor-->
+        <div class="container" >
+            <div class="row" style="margin-top: 20px;padding: 40px;">
+                <section class="col-md-6 top-0 bottom-0 end-0" id="landing">
+                    <div class="col-md-12 " >
+
+                         <!--TAREAS-->
+    <h1 class="text-center">Tareas</h1>
+    <form id="infoForm">
+        <label for="infoInput"></label>
+        <!--input type="text" id="infoInput"-->
+        <div class="mb-3">
+          
+            <textarea type="text" id="infoInput" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="text-center">
+        <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarInformacion()">Agregar a la lista</button>
+    </div>
+    </form>
+
+
+
+    <h2 class="text-center">Tareas pendientes:</h2>
+    <ul id="infoList" ></ul>
+    
+   
+</div>
+
+
+
+</section>
+
+<div class="col-md-6">
+    <div class="w-100 ">
+          <!--COMPRAS-->
+     <h1 class="text-center">Compras</h1>
+     <form id="infoForm2">
+         <label for="infoInput2"></label>
+         <!--input type="text" id="infoInput"-->
+         <div class="mb-3">
+           
+             <textarea type="text" id="infoInput2" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+           </div>
+           <div class="text-center">
+         <button type="button" class="subir" style="margin-bottom: 60px;" onclick="agregarInfo2()">Agregar a la lista</button>
+        </div>
+     </form>
+
+
+
+  
+
+    <div class="w-100 ">
+    <h2 class="text-center">Compras pendientes:</h2>
+    <ul id="infoList2"></ul>
+    </div>
+
+    <script>
+        function agregarInformacion() {
+            // Obtén el valor del campo de entrada
+            const infoInput = document.getElementById('infoInput');
+            const nuevaInformacion = infoInput.value;
+
+            // Asegúrate de que no esté vacío
+            if (nuevaInformacion.trim() === '') {
+                alert('Ingresa una información válida.');
+                return;
+            }
+
+            // Agrega la nueva información a la lista
+            const infoList = document.getElementById('infoList');
+            const listItem = document.createElement('li');
+            listItem.textContent = nuevaInformacion;
+            infoList.appendChild(listItem);
+
+            // Borra el campo de entrada
+            infoInput.value = '';
+        }
+    </script>
+
+
+
+
+<script>
+    function agregarInfo2() {
+        // Obtén el valor del campo de entrada
+        const infoInput2 = document.getElementById('infoInput2');
+        const nuevaInformacion2 = infoInput2.value;
+
+        // Asegúrate de que no esté vacío
+        if (nuevaInformacion2.trim() === '') {
+            alert('Ingresa una información válida.');
+            return;
+        }
+
+        // Agrega la nueva información a la lista
+        const infoList2 = document.getElementById('infoList2');
+        const listItem2 = document.createElement('li');
+        listItem2.textContent = nuevaInformacion2;
+        infoList2.appendChild(listItem2);
+
+        // Borra el campo de entrada
+        infoInput2.value = '';
+    }
+</script>

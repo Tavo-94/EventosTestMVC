@@ -1,0 +1,74 @@
+﻿<div class="container">
+    <div class="row" style="margin-top: 20px;padding: 40px;">
+
+        <section class="col-md-6 top-0 bottom-0 end-0" id="landing">
+            <div class="col-md-12 ">
+                <h2 style="margin-bottom: 30px;" class="text-center">Facturas y Archivos</h2>
+
+                <div>
+                    <label for="formFileLg" class="form-label" style="margin-bottom: 20px;">Aqui puedes subir y acceder a las facturas u archivos que deseas  guardar sobre tu evento</label>
+                    <input type="file" id="fileInput" accept=".txt, .pdf, .jpg, .png" class="form-control form-control-lg">
+                </div>
+
+
+                <!--input type="file" id="fileInput" accept=".txt, .pdf, .jpg, .png" -->
+                </br>
+                </br>
+                <div class="text-center">
+                    <button id="uploadButton" class="subir" style="margin-bottom: 60px;">Subir Archivo</button>
+                </div>
+        </section>
+
+
+
+
+
+        <div class="col-md-6">
+            <div class="w-100 ">
+
+                <h2 class="text-center">Subidos:</h2>
+                <ul id="fileList"></ul>
+
+                <div id="fileContent"></div>
+            </div>
+        </div>
+
+
+
+
+        <script>
+            // Obtén referencias a los elementos HTML
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.getElementById('uploadButton');
+            const fileList = document.getElementById('fileList');
+            const fileContent = document.getElementById('fileContent');
+
+            // Agrega un evento para manejar la carga de archivos
+            uploadButton.addEventListener('click', () => {
+                const file = fileInput.files[0];
+
+                if (file) {
+                    // Crea un nuevo elemento de lista y muestra el nombre del archivo
+                    const listItem = document.createElement('li');
+                    listItem.textContent = file.name;
+                    fileList.appendChild(listItem);
+
+                    // Sube el archivo al servidor (debes implementar el servidor)
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    fetch('http://127.0.0.1', { // Reemplaza 'upload.php' con la URL de tu servidor
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Muestra el enlace para acceder al archivo subido
+                            const fileLink = document.createElement('a');
+                            fileLink.href = data.filePath; // 'filePath' debe ser la ruta al archivo en el servidor
+                            fileLink.textContent = 'Acceder al archivo';
+                            fileList.appendChild(fileLink);
+                        });
+                }
+            });
+        </script>

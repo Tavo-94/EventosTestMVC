@@ -41,6 +41,8 @@ namespace EventosTestMVC.Controllers
 
                 HttpContext.Session.SetString("UserLogInId", userlogeado.Email.ToString());
 
+
+
                 return RedirectToAction("Index","Home");
             }
 

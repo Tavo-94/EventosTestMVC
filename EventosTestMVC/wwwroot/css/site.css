@@ -1,50 +1,3 @@
-html {
-    font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    background-image: url(../img/f.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    z-index: -1;
-}
-
-    body.body-landing {
-        background-image: url(../img/f.jpg);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: white;
-        z-index: -1;
-    }
-
-    body.body-create {
-        background-image: url(img/f.jpg);
-        filter: alpha(opacity=10);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        color: white;
-    }
-
-section.section-create {
-    margin: 30px;
-    padding: 20px;
-}
-
 #menu {
     padding: 16px;
     margin-left: 4px;
@@ -63,7 +16,15 @@ section.section-create {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+#invitados {
+    margin-top: 40px;
+    text-align: center;
+}
 
+
+#asistencia {
+    font-weight: 600;
+}
 
 #menug {
     padding: 16px;
@@ -84,7 +45,7 @@ section.section-create {
     background-color: #FFE0E6;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     border-color: #FFE0E6;
-    box-shadow: 0 0 10px #FD4685,;
+    box-shadow: 0 0 10px #FD4685;
 }
 
 .mesa {
@@ -92,6 +53,13 @@ section.section-create {
     font-weight: bold;
 }
 
+
+#btn_enviar {
+    border-radius: 35rem;
+    margin-left: 20px;
+    border-color: #FD4685;
+    background-color: white;
+}
 
 
 #menulink {
@@ -188,7 +156,9 @@ section.section-create {
     }
 }
 
-
+#comentario {
+    padding: 25px;
+}
 
 
 /*para escritorio*/
@@ -205,5 +175,11 @@ section.section-create {
 
     .contenedor-aspectratio {
         width: auto;
+    }
+
+    #comentario {
+        padding: 60px;
+        margin-inline-start: 20px;
+        margin-inline-end: 20px;
     }
 }
