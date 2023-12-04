@@ -248,6 +248,16 @@ namespace EventosTestMVC.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        //listar invitados
+
+        public IActionResult ListarInvitados() {
+
+            var invitados = _dataContext.UsuarioToEventos.
+                Where(e => e.EventoId == new Guid(HttpContext.Session.GetString("CodigoEvento")) && e.Rol == "Invitado")
+                .Select(e => e.Usuario).ToList();
+            return View(invitados);
+        }
+
 
     }
 }

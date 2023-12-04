@@ -1,0 +1,18 @@
+﻿@model List<UsuarioEntity>
+@{
+}
+
+
+<h1>Invitados</h1>
+<ul class="list-group">
+
+    @foreach (var invitado in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @invitado.Nombre @invitado.Apellido
+            <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+    }
+
+
+</ul>
