@@ -64,12 +64,22 @@
                                     <img src="~/img/fot_video.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                                 </a>
                             </li>
+                            <li>
+                                <a class="nav-link" asp-action="Editar" asp-controller="Usuario">
+                                    <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
                         }
 
                         @if (Context.Session.GetString("CodigoEvento") != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="Comentarios" asp-controller="Evento" asp-route-eventoId=@Context.Session.GetString("CodigoEvento")>
+                                    <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-action="Editar" asp-controller="Usuario">
                                     <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                                 </a>
                             </li>

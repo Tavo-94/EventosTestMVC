@@ -35,7 +35,8 @@ namespace EventosTestMVC.Controllers
         [HttpPost]
         public IActionResult LogIn(LogInViewModel logInViewModel)
         {
-            if (_dataContext.UsuarioEntities.Any(u => u.Email == logInViewModel.Email && u.Password == logInViewModel.Password)) {
+            if (_dataContext.UsuarioEntities.Any(u => u.Email == logInViewModel.Email && u.Password == logInViewModel.Password))
+            {
 
                 var userlogeado = _dataContext.UsuarioEntities.FirstOrDefault(u => u.Email == logInViewModel.Email);
 
@@ -43,11 +44,11 @@ namespace EventosTestMVC.Controllers
 
 
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
 
 
-                return View(new LogInViewModel());
+            return View(new LogInViewModel());
         }
 
         public IActionResult LogOut()
@@ -64,7 +65,17 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult Registrar()
         {
-            RegistroViewModel viewModel = new RegistroViewModel(); 
+            RegistroViewModel viewModel = new RegistroViewModel()
+            {
+                Usuario = new UsuarioEntity() { },
+                Avatares = _dataContext.AvatarUsers.Select(a =>
+                        new SelectListItem()
+                        {
+                            Text = a.RutaJson,
+                            Value = a.Id.ToString()
+                        }
+                    ).ToList()
+            };
 
             return View(viewModel);
         }
@@ -74,33 +85,37 @@ namespace EventosTestMVC.Controllers
         public IActionResult Registrar(RegistroViewModel registroViewModel)
         {
             UsuarioEntity nuevoUsuario = registroViewModel.Usuario;
-            registroViewModel.Usuario.AvatarUserId = 9;
+
             _dataContext.UsuarioEntities.Add(nuevoUsuario);
             _dataContext.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
 
 
-        public IActionResult Editar(string usuarioEmail)
+        public IActionResult Editar(int? avatarId)
         {
-             RegistroViewModel viewModel = new RegistroViewModel()
-             {
-                 Usuario = _dataContext.UsuarioEntities
-                .Where(u => u.Email == usuarioEmail)
-                .Include(u => u.AvatarUser)
-                .FirstOrDefault(),
-                 Avatares = _dataContext.AvatarUsers.Select(a =>
-                         new SelectListItem()
-                         {
-                             Text = a.RutaJson,
-                             Value = a.Id.ToString()
-                         }
-                    ).ToList()
-             };
+            var usuarioEmail = HttpContext.Session.GetString("UserLogInId");
+            RegistroViewModel viewModel = new RegistroViewModel()
+            {
+                Usuario = _dataContext.UsuarioEntities
+                    .Where(u => u.Email == usuarioEmail)
+                    .Include(u => u.AvatarUser)
+                    .FirstOrDefault(),
+                Avatares = _dataContext.AvatarUsers.Select(a =>
+                    new SelectListItem()
+                    {
+                        Text = a.RutaJson,
+                        Value = a.Id.ToString(),
+                        // Marcar el avatar seleccionado
+                        Selected = (a.Id == avatarId)
+                    }
+                ).ToList()
+            };
 
             return View(viewModel);
         }
+
 
         [HttpPost]
         public IActionResult Editar(RegistroViewModel registroViewModel)
@@ -112,11 +127,6 @@ namespace EventosTestMVC.Controllers
             _dataContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
-        }
-        public IActionResult SelectAvatar()
-        {
-            var avatars = _dataContext.AvatarUsers.ToList(); // Reemplaza con tu lógica para obtener la lista de avatares
-            return View(avatars);
         }
     }
 }

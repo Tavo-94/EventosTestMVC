@@ -13,6 +13,7 @@
                     <label asp-for="@Model.Usuario.Nombre" class="form-label">Nombre</label>
                     <input class="form-control" asp-for="@Model.Usuario.Nombre">
                     <span asp-validation-for="@Model.Usuario.Nombre" class="text-danger"></span>
+
                 </div>
                 <div class="mb-3">
                     <label asp-for="@Model.Usuario.Apellido" class="form-label">Apellido</label>
@@ -23,37 +24,109 @@
                     <label asp-for="@Model.Usuario.Email" class="form-label">Email</label>
                     <input class="form-control" asp-for="@Model.Usuario.Email">
                     <span asp-validation-for="@Model.Usuario.Email" class="text-danger"></span>
+
                 </div>
                 <div class="mb-3">
                     <label asp-for="@Model.Usuario.Password" class="form-label">Contraseña</label>
                     <input class="form-control" asp-for="@Model.Usuario.Password" readonly>
                     <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
                 </div>
+                @*                 <div class="mb-3">
+                <label asp-for="@Model.Usuario.Password" class="form-label">Confirmar Contraseña</label>
+                <input class="form-control" asp-for="@Model.Usuario.Password">
+                <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
+                </div> *@
 
-                <!-- Div circular para mostrar el avatar -->
-                <div class="avatar-container">
-                    <img src="@Url.Content(Model.Usuario.AvatarUser?.RutaJson)" alt="Avatar" class="avatar-img">
-                </div>
 
-                <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Registrar</button>
+                <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Guardar Cambios</button>
             </form>
 
+            <div class="col-md-3 mb-4">
+                <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
+                    <!-- Puedes personalizar el estilo según tus necesidades -->
+                    <div class="card-body">
+                        <input type="hidden" id="Usuario_AvatarUserId" name="Usuario.AvatarUserId" value="@Model.Usuario.AvatarUserId" />
+                        <div class="lottie-container" id="Usuario_AvatarUserId" data-json-path="@Url.Content(Model.Usuario.AvatarUser.RutaJson)"></div>
+                    </div>
+                </div>
+                <button type="button" id="openModalBtn">Cambiar Avatar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal para seleccionar el avatar -->
+<div id="avatarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModalBtn" style="font-size: 45px;">&times;</span>
+        <!-- Contenido del modal (lista de avatares) -->
+        <div class="row">
+            @foreach (var avatar in Model.Avatares)
+            {
+                <div class="col-md-3 mb-4">
+                    <a href="@Url.Action("SeleccionarAvatar", "Avatar", new { avatarId = avatar.Value })" class="card-link d-block">
+                        <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
+                            <div class="card-body">
+                                <div class="lottie-container avatarItem" data-avatar-id="@avatar.Value" data-json-path="@Url.Content(avatar.Text)"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+    <script>
+        document.querySelectorAll('.lottie-container').forEach(function (container) {
+            var jsonPath = container.getAttribute('data-json-path');
 
-<style>
-    .avatar-container {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
+            if (jsonPath !== "") {
+                console.log('Cargando animación desde:', jsonPath);
 
-    .avatar-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-</style>
+                var animation = bodymovin.loadAnimation({
+                    container: container,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: jsonPath
+                });
+            }
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById("avatarModal");
+            var openBtn = document.getElementById("openModalBtn");
+            var closeBtn = document.getElementById("closeModalBtn");
+            var avatarDisplay = document.getElementById("avatarDisplay");
+
+            openBtn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            closeBtn.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // Manejar la selección de avatar en el modal
+            var avatarItems = document.getElementsByClassName("avatarItem");
+            for (var i = 0; i < avatarItems.length; i++) {
+                avatarItems[i].onclick = function () {
+                    var avatarId = this.getAttribute("data-avatar-id");
+                    var avatarJsonPath = this.getAttribute("data-json-path");
+
+                    // Actualizar el contenido del div con el nuevo avatar
+                    avatarDisplay.innerHTML = '<div class="card-body"><div class="lottie-container" data-json-path="' + avatarJsonPath + '"></div></div>';
+
+                    // Cerrar el modal
+                    modal.style.display = "none";
+                };
+            }
+        });
+    </script>
+}
+
+}
