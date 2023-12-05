@@ -64,15 +64,7 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult Registrar()
         {
-            RegistroViewModel viewModel = new RegistroViewModel() {
-                Usuario = new UsuarioEntity() { },
-                Avatares = _dataContext.AvatarUsers.Select(a =>
-                        new SelectListItem() {
-                            Text = a.ImageUrl,
-                            Value = a.Id.ToString()
-                        }
-                    ).ToList()
-            };
+            RegistroViewModel viewModel = new RegistroViewModel(); 
 
             return View(viewModel);
         }
@@ -82,7 +74,7 @@ namespace EventosTestMVC.Controllers
         public IActionResult Registrar(RegistroViewModel registroViewModel)
         {
             UsuarioEntity nuevoUsuario = registroViewModel.Usuario;
-
+            registroViewModel.Usuario.AvatarUserId = 9;
             _dataContext.UsuarioEntities.Add(nuevoUsuario);
             _dataContext.SaveChanges();
             return RedirectToAction("Index","Home");
@@ -92,20 +84,20 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult Editar(string usuarioEmail)
         {
-            RegistroViewModel viewModel = new RegistroViewModel()
-            {
-                Usuario = _dataContext.UsuarioEntities
+             RegistroViewModel viewModel = new RegistroViewModel()
+             {
+                 Usuario = _dataContext.UsuarioEntities
                 .Where(u => u.Email == usuarioEmail)
                 .Include(u => u.AvatarUser)
                 .FirstOrDefault(),
-                Avatares = _dataContext.AvatarUsers.Select(a =>
-                        new SelectListItem()
-                        {
-                            Text = a.ImageUrl,
-                            Value = a.Id.ToString()
-                        }
+                 Avatares = _dataContext.AvatarUsers.Select(a =>
+                         new SelectListItem()
+                         {
+                             Text = a.RutaJson,
+                             Value = a.Id.ToString()
+                         }
                     ).ToList()
-            };
+             };
 
             return View(viewModel);
         }
@@ -120,6 +112,11 @@ namespace EventosTestMVC.Controllers
             _dataContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult SelectAvatar()
+        {
+            var avatars = _dataContext.AvatarUsers.ToList(); // Reemplaza con tu lógica para obtener la lista de avatares
+            return View(avatars);
         }
     }
 }

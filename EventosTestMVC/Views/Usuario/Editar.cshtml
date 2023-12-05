@@ -13,7 +13,6 @@
                     <label asp-for="@Model.Usuario.Nombre" class="form-label">Nombre</label>
                     <input class="form-control" asp-for="@Model.Usuario.Nombre">
                     <span asp-validation-for="@Model.Usuario.Nombre" class="text-danger"></span>
-
                 </div>
                 <div class="mb-3">
                     <label asp-for="@Model.Usuario.Apellido" class="form-label">Apellido</label>
@@ -24,27 +23,37 @@
                     <label asp-for="@Model.Usuario.Email" class="form-label">Email</label>
                     <input class="form-control" asp-for="@Model.Usuario.Email">
                     <span asp-validation-for="@Model.Usuario.Email" class="text-danger"></span>
-
                 </div>
                 <div class="mb-3">
                     <label asp-for="@Model.Usuario.Password" class="form-label">Contraseña</label>
                     <input class="form-control" asp-for="@Model.Usuario.Password" readonly>
                     <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
                 </div>
-                @*                 <div class="mb-3">
-                <label asp-for="@Model.Usuario.Password" class="form-label">Confirmar Contraseña</label>
-                <input class="form-control" asp-for="@Model.Usuario.Password">
-                <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
-                </div> *@
-                <select asp-for="@Model.Usuario.AvatarUserId" asp-items="@Model.Avatares" class="form-select">
-                    <option selected disabled>--- Seleccionar ---</option>
 
-                </select>
+                <!-- Div circular para mostrar el avatar -->
+                <div class="avatar-container">
+                    <img src="@Url.Content(Model.Usuario.AvatarUser?.RutaJson)" alt="Avatar" class="avatar-img">
+                </div>
 
                 <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Registrar</button>
             </form>
 
         </div>
     </div>
-
 </div>
+
+<style>
+    .avatar-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
