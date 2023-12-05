@@ -53,7 +53,9 @@ namespace EventosTestMVC.Controllers
                 .ThenInclude(e => e.CodigoVestimenta)
                 .Include(e => e.Evento)
                 .ThenInclude(e => e.UserComments)
-                .ThenInclude(e=> e.Usuario)
+                .ThenInclude(e => e.Usuario)
+                .Include(e => e.Evento)
+                .ThenInclude(e => e.Supplies)
                 .FirstOrDefault();
 
             var creador = _dataContext.UsuarioToEventos.Where(e => e.EventoId == idDelEvento && e.Rol == "Planner")
@@ -82,8 +84,30 @@ namespace EventosTestMVC.Controllers
             return View(viewModel);
         }
 
-        //agregar comentario
-        public IActionResult InsertarComentario(DetalleEventoViewModel model) {
+        //Comentarios
+        public IActionResult Comentarios(string eventoId)
+        {
+
+            var eventoIdentificador = new Guid(eventoId);
+
+
+
+            var model = new ComentariosViewModel();
+
+            model.Comentario = new UserComment();
+            model.Evento = _dataContext.EventoEntities.Where(e => e.Id == eventoIdentificador)
+                .Include(e => e.UserComments)
+                .ThenInclude(c => c.Usuario)
+                .FirstOrDefault();
+
+            model.UserEmail = HttpContext.Session.GetString("UserLogInId");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult InsertarComentario(DetalleEventoViewModel model)
+        {
 
             var comentario = new UserComment();
             comentario.PublishDate = DateTime.Now;
@@ -121,7 +145,6 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult CrearNuevoEvento()
         {
-
             var viewmodel = new CrearEventoViewModel();
 
             var userid = HttpContext.Session.GetString("UserLogInId");
@@ -131,8 +154,9 @@ namespace EventosTestMVC.Controllers
             }
 
             viewmodel.usuarioId = userid;
-            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimenta.Select(c =>
-                new SelectListItem() { 
+            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimentas.Select(c =>
+                new SelectListItem()
+                {
                     Text = c.Nombre,
                     Value = c.Id.ToString()
                 }).ToList();
@@ -164,5 +188,83 @@ namespace EventosTestMVC.Controllers
             _dataContext.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        //Insumos
+        public IActionResult AgregarInsumo()
+        {
+
+            var model = new AgregarInsumoViewModel();
+            model.EventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
+            model.Supply = new Supply();
+            model.Supply.CategoryId = 1;
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AgregarInsumo(AgregarInsumoViewModel model)
+        {
+            var eventoID = model.EventoId;
+
+            model.Supply.EventoId = eventoID;
+            model.Supply.EventoEntity = _dataContext.EventoEntities.Where(e => e.Id == model.Supply.EventoId).FirstOrDefault();
+            model.Supply.Category = _dataContext.Categorias.Where(e => e.Id == model.Supply.CategoryId).FirstOrDefault();
+
+            _dataContext.Insumos.Add(model.Supply);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Evento", new { idDelEvento = model.EventoId });
+        }
+
+
+        //EDITAR EVENTO
+
+        public IActionResult Editar(string eventoId)
+        {
+
+            var identificadorDeEvento = new Guid(eventoId);
+            var viewmodel = new CrearEventoViewModel();
+
+            var userid = HttpContext.Session.GetString("UserLogInId");
+
+            viewmodel.usuarioId = userid;
+            viewmodel.CodigoDeVestimenta = _dataContext.CodigoVestimentas.Select(c =>
+                new SelectListItem()
+                {
+                    Text = c.Nombre,
+                    Value = c.Id.ToString()
+                }).ToList();
+
+            viewmodel.TipoDeEvento = _dataContext.TipoEventos.Select(c =>
+                new SelectListItem()
+                {
+                    Text = c.Nombre,
+                    Value = c.Id.ToString()
+                }).ToList();
+
+            viewmodel.Evento = _dataContext.EventoEntities.Where(e => e.Id == identificadorDeEvento).FirstOrDefault();
+
+            return View(viewmodel);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(CrearEventoViewModel model)
+        {
+
+            _dataContext.EventoEntities.Update(model.Evento);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        //listar invitados
+
+        public IActionResult ListarInvitados()
+        {
+
+            var invitados = _dataContext.UsuarioToEventos.
+                Where(e => e.EventoId == new Guid(HttpContext.Session.GetString("CodigoEvento")) && e.Rol == "Invitado")
+                .Select(e => e.Usuario).ToList();
+            return View(invitados);
+        }
+
+
     }
 }

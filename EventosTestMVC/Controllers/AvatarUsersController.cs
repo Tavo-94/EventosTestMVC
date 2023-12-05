@@ -28,7 +28,7 @@ namespace EventosTestMVC.Controllers
                           View(await _context.AvatarUsers.ToListAsync()) :
                           Problem("Entity set 'DataContext.AvatarUsers'  is null.");
         }
-
+      
         // GET: AvatarUsers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
