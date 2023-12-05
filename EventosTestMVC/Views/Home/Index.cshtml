@@ -64,6 +64,7 @@
                         <div style="margin-left: 30px;">
                             <div style="margin-top: 25px; color: #FFE0E6;">
                                 <h3>Eventos creados</h3>
+                                <form asp-action="DetalleEvento" asp-controller="Evento" method="post">
                                 <ul class="list-group">
                                     @if (Model.Eventos.Count > 0 && Model.Eventos != null)
                                     {
@@ -72,12 +73,46 @@
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 @evento.Titulo
                                                 <span class="badge bg-primary rounded-pill">@evento.Id</span>
-                                            </li>
-                                        }
+                                                <button type="submit" name="GuidDeEvento" value=@evento.Id.ToString() class="btn btn-primary">Ir al vento</button>
+                                                </li>
+
+                                            }
+
+                                    }
+                                    else
+                                    {
+                                        
+                                        <h6>Todavia no creaste ningun evento</h6>
                                     }
 
 
                                 </ul>
+
+                                    </form>
+
+                                    <h3>Eventos Invitado</h3>
+                                    <form asp-action="DetalleEvento" asp-controller="Evento" method="post">
+                                    <ul class="list-group">
+                                        @if (Model.EventosInvitado.Count > 0 && Model.EventosInvitado != null)
+                                        {
+                                            foreach (var evento in Model.EventosInvitado)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    @evento.Titulo
+                                                    <span class="badge bg-primary rounded-pill">@evento.Id</span>
+                                                        <button type="submit" name="GuidDeEvento" value=@evento.Id.ToString() class="btn btn-primary">Ir al vento</button>
+                                                </li>
+                                            }
+                                        } else
+                                        {
+                                           <h6>Todavia no te subscibiste a ningun evento</h6> 
+                                        }
+
+
+
+                                    </ul>
+                                    </form>
+
                             </div>
                         </div>
 

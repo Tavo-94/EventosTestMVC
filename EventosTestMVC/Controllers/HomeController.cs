@@ -31,8 +31,11 @@ namespace EventosTestMVC.Controllers
                 var usuarioId = HttpContext.Session.GetString("UserLogInId");
 
                 model.Eventos = _dataContext.UsuarioToEventos.Where(e => e.UsuarioEmail == usuarioId && e.Rol == "Planner").Select(e => e.Evento).ToList();
+
+                model.EventosInvitado = _dataContext.UsuarioToEventos.Where(e => e.UsuarioEmail == usuarioId && e.Rol == "Invitado").Select(e => e.Evento).ToList();
+
             }
-            
+
 
             return View(model);
         }
