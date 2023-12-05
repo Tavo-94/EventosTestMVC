@@ -8,6 +8,7 @@ namespace EventosTestMVC.Models
         public int Id { get; set; }
         public string UsuarioEmail { get; set; }
         public Guid EventoId { get; set; }
+        public bool EstaConfirmado { get; set; }
 
         //Planner o invitado
         public string Rol { get; set; }

@@ -1,4 +1,4 @@
-﻿@model List<UsuarioEntity>
+﻿@model List<UsuarioToEvento>
 @{
 }
 
@@ -9,8 +9,17 @@
     @foreach (var invitado in Model)
     {
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            @invitado.Nombre @invitado.Apellido
-            <span class="badge bg-primary rounded-pill">14</span>
+            @invitado.Usuario.Nombre @invitado.Usuario.Apellido
+
+            @if(invitado.EstaConfirmado){
+                <span class="badge rounded-pill bg-success">Confirmo asistencia</span>
+
+            }
+            else
+            {
+                <span class="badge rounded-pill bg-danger">No confirmo asistencia</span>
+
+            }
         </li>
     }
 

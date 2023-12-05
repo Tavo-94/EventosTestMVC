@@ -30,6 +30,14 @@
                             <p id="resultado" style="font-weight: bold; font-size: 30px; ">Asistencia</p>
                         </div>
 
+                        @if (Model.EstaConfirmado)
+                        {
+                            <a class="btn btn-danger" asp-action="DeclinarAsistencia" asp-controller="Evento">Bajarte del evento</a>
+                        } else
+                        {
+                            <a class="btn btn-success" asp-action="ConfirmarAsistencia" asp-controller="Evento">Confirmar Asistencia</a>
+                        }
+
                         <script>
                             const checkbox = document.getElementById("asistenciaCheckbox");
                             const resultado = document.getElementById("resultado");
@@ -85,13 +93,20 @@
                         <h5>Codigo de Vestimenta: @Model.Evento.CodigoVestimenta.Nombre</h5>
                             <h6>Lista de cosas a llevar</h6>
                             <ul class="list-group">
-                                @foreach (var insumo in Model.Evento.Supplies)
+                            @{
+                                foreach (var insumo in Model.Evento.Supplies)
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         @insumo.Description
                                         <span class="badge bg-primary rounded-pill">x @insumo.Quantity.ToString()</span>
-                                    </li>
+                                        @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
+                                        {
+                                            <a asp-action="EliminarInsumo" asp-controller="Evento" asp-route-idInsumo=@insumo.Id class="btn btn-danger"><i class="bi bi-trash"></i></a>
+
+                                        }
+                                    </li>                      
                                 }
+                            }
                             </ul>
                             @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
                             {

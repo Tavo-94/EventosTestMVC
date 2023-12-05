@@ -81,6 +81,7 @@ namespace EventosTestMVC.Controllers
             viewModel.Comentarios = evento.Evento.UserComments;
             viewModel.Insumo = new Supply();
             viewModel.CreadorDelEvento = creador.Usuario;
+            viewModel.EstaConfirmado = evento.EstaConfirmado;
             return View(viewModel);
         }
 
@@ -210,6 +211,22 @@ namespace EventosTestMVC.Controllers
             return RedirectToAction("Index", "Evento", new { idDelEvento = model.EventoId });
         }
 
+        public IActionResult EliminarInsumo(int idInsumo) {
+
+            var insumo = _dataContext
+                .Insumos
+                .Where(i => i.Id == idInsumo)
+                .Include(i => i.Category)
+                .Include(i => i.EventoEntity)
+                .FirstOrDefault();
+
+            _dataContext.Insumos.Remove(insumo);
+            _dataContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
 
         //EDITAR EVENTO
 
@@ -252,12 +269,47 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult ListarInvitados() {
 
-            var invitados = _dataContext.UsuarioToEventos.
-                Where(e => e.EventoId == new Guid(HttpContext.Session.GetString("CodigoEvento")) && e.Rol == "Invitado")
-                .Select(e => e.Usuario).ToList();
+            var invitados = _dataContext
+                .UsuarioToEventos
+                .Where(e => e.EventoId == new Guid(HttpContext.Session.GetString("CodigoEvento")) && e.Rol == "Invitado")
+                .Include(e => e.Usuario)
+                .ToList();
             return View(invitados);
         }
 
+
+        //confirmar asistencia
+
+        public IActionResult ConfirmarAsistencia()
+        {
+
+            var modelo = _dataContext
+                .UsuarioToEventos
+                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId"))
+                .FirstOrDefault();
+
+            modelo.EstaConfirmado = true;
+
+            _dataContext.UsuarioToEventos.Update(modelo);
+            _dataContext.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult DeclinarAsistencia() {
+
+            var modelo = _dataContext
+                .UsuarioToEventos
+                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId"))
+                .FirstOrDefault();
+
+            modelo.EstaConfirmado = false;
+
+            _dataContext.UsuarioToEventos.Update(modelo);
+            _dataContext.SaveChanges();
+            return RedirectToAction("Index", "Home");
+
+        }
 
     }
 }
