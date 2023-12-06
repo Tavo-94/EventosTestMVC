@@ -34,9 +34,9 @@
                     {
                         <div class="card-body">
                             <div class="d-flex flex-start align-items-center">
-                                @* <img class="rounded-circle shadow-1-strong me-3"
-                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
-                                     height="60" /> *@
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                     src="/img/@comentario.Usuario.AvatarUser.ImageUrl" alt="avatar" width="40"
+                                     height="40" />
                                 <div>
                                     <h6 class="fw-bold  mb-1  title">@comentario.Usuario.Nombre</h6>
                                     <p class="text-muted small mb-0">
@@ -56,19 +56,22 @@
                     <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
                         <div class="d-flex flex-start w-100">
                             <img class="rounded-circle shadow-1-strong me-3"
-                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                                 src="/img/@Model.UsuarioLogeado.AvatarUser.ImageUrl" alt="avatar" width="40"
                                  height="40" />
-                            <form asp-action="InsertarComentario" asp-controller="Evento" method="post">
-                                <input asp-for="@Model.Evento.Id" hidden />
-                                <div class="form-outline w-100" width="40">
-                                    <textarea asp-for="@Model.Comentario.TextComment" class="form-control" id="textAreaExample" 
-                                              style="background: #fff;" placeholder="Deja tu comentario..."></textarea>
-                                    <div class="float-end mt-2 pt-1">
-                                        <button type="submit" class="btn-sm btn_enviar" style="font-weight: bold; color: #FD4685; ">  ENVIAR<img src="~/img/enviar.png" height="20px" width="20px" style="margin-left: 10px;"> </button>
+                                 <div class="flex-grow-1">
+                                <form asp-action="InsertarComentario" asp-controller="Evento" method="post">
+                                    <input asp-for="@Model.Evento.Id" hidden />
+                                    <div class="form-outline w-100" width="40">
+                                        <textarea asp-for="@Model.Comentario.TextComment" class="form-control" id="textAreaExample"
+                                                  style="background: #fff;" placeholder="Deja tu comentario..."></textarea>
+                                        <div class="float-end mt-2 pt-1">
+                                            <button type="submit" class="btn-sm btn_enviar" style="font-weight: bold; color: #FD4685; ">  ENVIAR<img src="~/img/enviar.png" height="20px" width="20px" style="margin-left: 10px;"> </button>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </form>
+                                </form>
+
+                                 </div>
 
                         </div>
 

@@ -98,9 +98,14 @@ namespace EventosTestMVC.Controllers
             model.Evento = _dataContext.EventoEntities.Where(e => e.Id == eventoIdentificador)
                 .Include(e => e.UserComments)
                 .ThenInclude(c => c.Usuario)
+                .ThenInclude(u => u.AvatarUser)
                 .FirstOrDefault();
 
-            model.UserEmail = HttpContext.Session.GetString("UserLogInId");
+            model.UsuarioLogeado = _dataContext
+                .UsuarioEntities
+                .Where(u => u.Email == HttpContext.Session.GetString("UserLogInId"))
+                .Include(u => u.AvatarUser)
+                .FirstOrDefault();
 
             return View(model);
         }
@@ -223,7 +228,9 @@ namespace EventosTestMVC.Controllers
             _dataContext.Insumos.Remove(insumo);
             _dataContext.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
+
+            return RedirectToAction("Index", "Evento", new {idDelEvento = eventoId });
 
         }
 
@@ -262,7 +269,10 @@ namespace EventosTestMVC.Controllers
 
             _dataContext.EventoEntities.Update(model.Evento);
             _dataContext.SaveChanges();
-            return RedirectToAction("Index","Home");
+
+
+
+            return RedirectToAction("Index", "Evento", new { idDelEvento = model.Evento.Id });
         }
 
         //listar invitados
@@ -293,7 +303,9 @@ namespace EventosTestMVC.Controllers
             _dataContext.UsuarioToEventos.Update(modelo);
             _dataContext.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
+
+            return RedirectToAction("Index", "Evento", new { idDelEvento = eventoId });
         }
 
         public IActionResult DeclinarAsistencia() {
@@ -307,8 +319,10 @@ namespace EventosTestMVC.Controllers
 
             _dataContext.UsuarioToEventos.Update(modelo);
             _dataContext.SaveChanges();
-            return RedirectToAction("Index", "Home");
 
+            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
+
+            return RedirectToAction("Index", "Evento", new { idDelEvento = eventoId });
         }
 
     }
