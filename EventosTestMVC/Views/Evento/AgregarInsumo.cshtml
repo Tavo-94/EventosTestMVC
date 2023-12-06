@@ -2,7 +2,7 @@
 @{
 }
 
-<div class="container my-5 bg-light">
+@* <div class="container my-5 bg-light">
     <div class="row align-items-center justify-content-center h-100">
         <div class="col-4">
             <form asp-action="AgregarInsumo" asp-controller="Evento" method="post">
@@ -23,6 +23,52 @@
 
 
                 <button type="submit" class="btn btn-primary rounded-pill px-5">Cargar</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+ *@
+
+
+<style>
+    #formulario {
+        background-color: #FFE0E6;
+        margin-top: 60px;
+        padding: 40px;
+    }
+
+</style>
+
+
+<div class="container-fluid text-center" id="formulario">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-4">
+            <small class="text-muted ">Aqui puedes agregar las cosas que necesites para tu evento</small>
+
+            <form asp-action="AgregarInsumo" asp-controller="Evento" method="post" style="margin-top: 20px;">
+                <div class="mb-3">
+                    <!--label asp-for="@Model.Supply.Description" class="form-label">Descripcion</label-->
+                    <input class="form-control" asp-for="@Model.Supply.Description" placeholder="Descripcion" required>
+
+                </div>
+
+                <div class="mb-3">
+                    <!--label asp-for="@Model.Supply.Quantity" class="form-label">Contraseña</label-->
+                    <input class="form-control" asp-for="@Model.Supply.Quantity" min="1" placeholder="Cantidad" required>
+
+                </div>
+
+                <input class="form-control" asp-for="@Model.EventoId" hidden>
+                <input class="form-control" asp-for="@Model.Supply.CategoryId" hidden>
+
+
+
+                <div class="d-grid gap-2 text-center" style="margin-top: 50px;">
+                    <button type="submit" class="btn rounded-pill subir">AGREGAR INSUMO</button>
+                </div>
+
 
             </form>
 

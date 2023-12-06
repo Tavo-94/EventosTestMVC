@@ -3,7 +3,7 @@
 }
 
 
-<h1>Invitados</h1>
+@* <h1>Invitados</h1>
 <ul class="list-group">
 
     @foreach (var invitado in Model)
@@ -12,6 +12,43 @@
             @invitado.Usuario.Nombre @invitado.Usuario.Apellido
 
             @if(invitado.EstaConfirmado){
+                <span class="badge rounded-pill bg-success">Confirmo asistencia</span>
+
+            }
+            else
+            {
+                <span class="badge rounded-pill bg-danger">No confirmo asistencia</span>
+
+            }
+        </li>
+    }
+
+
+</ul> *@
+
+<style>
+    h1 {
+        color: #4911F7;
+        margin-top: 60px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    li {
+        margin-bottom: 5px;
+    }
+</style>
+
+<h1 class="display-5 text-center">Invitados</h1>
+<ul class="list-group">
+
+    @foreach (var invitado in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @invitado.Usuario.Nombre @invitado.Usuario.Apellido
+
+            @if (invitado.EstaConfirmado)
+            {
                 <span class="badge rounded-pill bg-success">Confirmo asistencia</span>
 
             }

@@ -2,7 +2,7 @@
 @{
 }
 
-<h1>Detalle del evento</h1>
+<@* h1>Detalle del evento</h1>
 
 
 
@@ -120,7 +120,135 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
+
+
+<style>
+#ins {
+    background-color: white;
+    color: #FD4685;
+    border-radius: 15rem;
+    display: flexbox;
+    font-weight: bold;
+    border-color: #FD4685;
+    font-size: 20px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 100px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+#pildora {
+    background-color: #4911F7;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+</style>
+
+
+
+<div class="container p-5">
+    <div class="col-md-12">
+        <div class="row" style="margin-block-start: 55px;">
+            <div class="col-sm-6">
+
+                <div class="card" id="horayagenda">
+                    <div class="card-body text-center">
+                        <img src="~/img/reloj.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                        <h5 class="card-title" style="margin: 5px; font-weight: bold; font-size: 25px;">
+                            @Model.Evento.DiasRestantes días @Model.Evento.HorasRestantes horas @Model.Evento.MinutosRestantes minutos
+                        </h5>
+                    </div>
+                </div>
+                <div class="card" id="horayagenda">
+                    <div class="card-body text-center ">
+
+
+                            <p id="resultado" style="font-weight: bold; font-size: 30px; ">Asistencia</p>
+
+
+                        @if (Model.EstaConfirmado)
+                        {
+                                <a class="btn btn-danger" asp-action="DeclinarAsistencia" asp-controller="Evento">NO ASISTIRE</a>
+                        }
+                        else
+                        {
+                                <a class="btn btn-success" asp-action="ConfirmarAsistencia" asp-controller="Evento">ASISTIRE</a>
+                        }
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!--info del evento-->
+            <div class="col-md-6">
+                </br>
+
+                <p class="text-muted text-end">Creador del Evento: @Model.CreadorDelEvento.Nombre @Model.CreadorDelEvento.Apellido</p>
+                <div style="margin-left: 30px;">
+
+                    <div>
+                        <img src="~/img/candado2.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-top">
+                        <small class="text-muted">Clave de ingreso: @Model.Evento.Id</small>
+                    </div>
+
+                    <h1 class="display-4" style="color: #4911F7; font-weight: bold; margin-top: 10px; ">@Model.Evento.Titulo</h1>
+                    <h4 style="font-size: 22px; color: grey;"><em>@Model.Evento.TipoEvento.Nombre</em></h4>
+
+                    <div class="text-center" style="margin-top: 40px; ">
+                        <div>
+                            <img src="~/img/cal.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                            <h3 style="font-weight: bold; color: #FF77A5; margin-top: 5px; margin-bottom: 10px;">@Model.Evento.FechaDeEvento.Date</h3>
+                        </div>
+
+                        <div>
+                            <img src="~/img/reloj2.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                            <h3 style="font-weight: bold; color: #FF77A5; margin-top: 5px;">@Model.Evento.FechaDeEvento.TimeOfDay</h3>
+                        </div>
+                        <h4>Lugar del Evento</h4>
+                    </div>
+
+
+                    <div style="margin-top: 40px;">
+                        <h5>Codigo de Vestimenta: @Model.Evento.CodigoVestimenta.Nombre</h5>
+                            <h6>Lista de cosas a llevar</h6>
+                            <ul class="list-group">
+                            @{
+                                foreach (var insumo in Model.Evento.Supplies)
+                                {
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @insumo.Description
+                                                <span class="badge rounded-pill" id="pildora">x @insumo.Quantity.ToString()</span>
+                                        @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
+                                        {
+                                                        <a asp-action="EliminarInsumo" asp-controller="Evento" asp-route-idInsumo=@insumo.Id class="btn btn-danger"><i class="bi bi-trash"></i></a>
+
+                                        }
+                                            </li>
+                                }
+                            }
+                            </ul>
+                        @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
+                        {
+                                    <a asp-action="AgregarInsumo" asp-controller="Evento" class="btn-lg text-center" id="ins">AGREGAR INSUMO</a>
+                        }
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
 

@@ -1,7 +1,7 @@
 ﻿@model EventosTestMVC.Models.ViewModel.LogInViewModel
 @{
 }
-
+@* 
 <div class="container my-5">
     <div class="row align-items-center justify-content-center h-100">
         <div class="col-4">
@@ -26,4 +26,59 @@
             </div>
         </div>
     </div>
+</div> *@
+
+
+<style>
+    header {
+        background-color: #4911F7;
+        height: 250px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #btnlog {
+        background-color: #4911F7;
+        color: white;
+        font-weight: 700;
+        border: none;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 100px;
+    }
+</style>
+
+<header class="d-flex flex-row justify-content-center align-items-center">
+    <h1 style="font-size: 70px; font-weight: 550; margin-top: 70px; color: white;">LOGIN</h1>
+</header>
+
+
+<div class="container " style="margin-top: 80px;">
+    <div class="row align-items-center justify-content-center h-100">
+        <div class="col-md-6">
+            <form asp-action="LogIn" asp-controller="Usuario" method="post">
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" asp-for="Email" required>
+
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" asp-for="Password" id="myInput" required>
+
+                </div>
+
+                <div class="d-grid gap-2 ">
+                    <button type="submit" class="btn btn-lg rounded-pill" id="btnlog">ACEPTAR</button>
+                </div>
+
+            </form>
+
+            <div class="mt-4 text-center" style="font-size: 20px; ">
+                <small class="link-secondary">No tenes Cuenta?<a href="@Url.Action("Registrar","Usuario")" style="font-weight: bold; color: #FD4685; text-decoration: none;"> Registrate Aqui!!!</a> </small>
+            </div>
+        </div>
+    </div>
 </div>
+

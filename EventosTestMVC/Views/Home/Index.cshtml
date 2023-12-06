@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<style>
+@* <style>
     body {
         background-image: url(img/f.jpg);
         background-position: center;
@@ -129,4 +129,154 @@
 
 
 
-</body>
+</body> *@
+
+
+
+<style>
+    body {
+        background-image: url(img/f.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: white;
+        z-index: -1;
+    }
+
+    #boton {
+        background-color: white;
+        color: #4911F7;
+        border-radius: 15rem;
+        display: flexbox;
+        font-weight: bold;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10px;
+    }
+
+    #pildora {
+        background-color: #4911F7;
+        color: white;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    #aceptar {
+        border-radius: 35rem;
+        margin-left: 20px;
+        border-color: #FD4685;
+        background-color: white;
+    }
+</style>
+
+
+<div class="body-landing">
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+            <!-- Right Section (formerly left) -->
+            <div class="col-md-6">
+                <div class="text-center">
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/img/logo.png" class="w-50 p-3" alt="..." style=" text-decoration-line: none;">
+
+                    </a>
+                </div>
+
+
+                <form asp-action="DetalleEvento" asp-controller="Evento" method="post">
+                    <div class="col-10 mx-auto d-md-block text-center">
+                        <h6 style="margin-bottom: 20px; margin-top: 20px;">Si estás invitado a una reunión</h6>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" asp-for="GuidDeEvento">
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-lg-center " style="margin-top: 30px;">
+                            <button type="submit" class="btn" id="boton">Ir al evento</button>
+
+                        </div>
+                        <div class="text-center">
+                            <small style="margin-right: 8px;">Si ya estás registrado</small>
+                            <a asp-action="LogIn" asp-controller="Usuario" class="text-white">LogIn</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <section class="col-md-6 top-0 bottom-0 end-0" id="landing">
+
+                <a asp-area="" asp-controller="Evento" asp-action="CrearNuevoEvento">
+                    <div class="text-center w-100">
+                        <img src="~/img/mas.png" class="w-50 p-3" alt="..." style=" margin-top: 40px;">
+                        <h1 style="color: #FFE0E6;text-decoration-line: none; text-decoration: none;">Crear nuevo evento</h1>
+                    </div>
+                </a>
+
+                @{
+                    if (Context.Session.GetString("UserLogInId") != null)
+                    {
+                        <div>
+                            <div style="margin-top: 25px; color: #FFE0E6;">
+                                <h3>Eventos creados</h3>
+                                <form asp-action="DetalleEvento" asp-controller="Evento" method="post">
+                                    <ul class="list-group">
+                                        @if (Model.Eventos.Count > 0 && Model.Eventos != null)
+                                        {
+                                            foreach (var evento in Model.Eventos)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    @evento.Titulo
+                                                    <span class="badge  rounded-pill" id="pildora">@evento.Id</span>
+                                                    <button type="submit" name="GuidDeEvento" value=@evento.Id.ToString() class="btn" id="aceptar"><img src="img/enviar.png" alt="..." height="30" width="30"></button>
+                                                </li>
+
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                            <h6>Todavia no creaste ningun evento</h6>
+                                        }
+
+
+                                    </ul>
+
+                                </form>
+
+                                <h3 style="margin-top: 20px;">Eventos Invitado</h3>
+                                <form asp-action="DetalleEvento" asp-controller="Evento" method="post">
+                                    <ul class="list-group">
+                                        @if (Model.EventosInvitado.Count > 0 && Model.EventosInvitado != null)
+                                        {
+                                            foreach (var evento in Model.EventosInvitado)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    @evento.Titulo
+                                                    <span class="badge  rounded-pill" id="pildora">@evento.Id</span>
+                                                    <button type="submit" name="GuidDeEvento" value=@evento.Id.ToString() class="btn" id="aceptar"><img src="img/enviar.png" alt="..." height="30" width="30"></button>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <h6>Todavia no te subscibiste a ningun evento</h6>
+                                        }
+
+
+
+                                    </ul>
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    }
+                }
+
+            </section>
+
+        </div>
+    </div>
+</div>
+
+

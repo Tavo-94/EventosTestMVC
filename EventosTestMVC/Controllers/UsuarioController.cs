@@ -95,7 +95,7 @@ namespace EventosTestMVC.Controllers
             RegistroViewModel viewModel = new RegistroViewModel()
             {
                 Usuario = _dataContext.UsuarioEntities
-                .Where(u => u.Email == usuarioEmail)
+                .Where(u => u.Email == HttpContext.Session.GetString("UserLogInId"))
                 .Include(u => u.AvatarUser)
                 .FirstOrDefault(),
                 Avatares = _dataContext.AvatarUsers.Select(a =>

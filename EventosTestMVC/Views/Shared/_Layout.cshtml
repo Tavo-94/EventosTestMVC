@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
 </head>
-<body >
+<body>
     <header>
 
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #D69FF9; opacity: 0.8;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4911F7; opacity: 0.8;">
             <div class="container-fluid">
                 <a asp-area="" asp-controller="Home" asp-action="Index">
                     <img style="width: 55px; height: 55px" class="d-inline-block align-text-top" src="~/img/logo.png" class="text-center " />
@@ -37,7 +37,7 @@
                         @if (String.Equals((string)Context.Session.GetString("RolEvento"), "Planner"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                                     Menu
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -50,6 +50,8 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
+
+
                                 <a class="nav-link" asp-action="Editar" asp-controller="Evento" asp-route-eventoId=@Context.Session.GetString("CodigoEvento")>
                                     <img src="~/img/editar.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                                 </a>
@@ -72,6 +74,12 @@
                                 <a class="nav-link" asp-action="Comentarios" asp-controller="Evento" asp-route-eventoId=@Context.Session.GetString("CodigoEvento")>
                                     <img src="~/img/mensaje.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
                                 </a>
+
+                                <a class="nav-link" asp-action="Editar" asp-controller="Usuario" asp-route-eventoId=@Context.Session.GetString("CodigoEvento")>
+                                    <img src="~/img/perfil.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                                </a>
+
+
                             </li>
                         }
 
@@ -80,45 +88,48 @@
                 @{
                     if (Context.Session.GetString("UserLogInId") == null)
                     {
-                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
+                        <a class="btn btn-outline-light d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
                     }
                     else
                     {
-                        <a class="btn btn-outline-success d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
+                        <a class="nav-link" asp-action="Editar" asp-controller="Usuario" asp-route-eventoId=@Context.Session.GetString("CodigoEvento")>
+                            <img src="~/img/perfil.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                        </a>
+                        <a class="btn btn-outline-light d-grid gap-2" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
                     }
                 }
             </div>
         </nav>
 
-@*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventosTestMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        @*         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EventosTestMVC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>
+        </ul>
 
-                    @{
-                        if (Context.Session.GetString("UserLogInId") == null)
-                        {
-                            <a class="btn btn-primary  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle"></i>Log In</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-primary  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
-                        }
-                    }
-                </div>
-            </div>
+        @{
+        if (Context.Session.GetString("UserLogInId") == null)
+        {
+        <a class="btn btn-outline-light  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogIn"><i class="bi bi-person-circle" style="margin-right: 5px;"></i>Log In</a>
+        }
+        else
+        {
+        <a class="btn btn-outline-light  mx-4" asp-area="" asp-controller="Usuario" asp-action="LogOut"><i class="bi bi-door-closed me-2"></i>Log Out</a>
+        }
+        }
+        </div>
+        </div>
         </nav> *@
     </header>
     <div class="container">

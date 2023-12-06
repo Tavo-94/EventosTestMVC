@@ -36,7 +36,7 @@
                 <input class="form-control" asp-for="@Model.Usuario.Password">
                 <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
                 </div> *@
-                <select asp-for="@Model.Usuario.AvatarUserId" asp-items="@Model.Avatares" class="form-select">
+                <select id="mySelectbox" asp-for="@Model.Usuario.AvatarUserId" asp-items="@Model.Avatares" class="form-select">
                     <option selected disabled>--- Seleccionar ---</option>
 
                 </select>
@@ -45,6 +45,53 @@
             </form>
 
         </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Avatar
+                    </h5>
+                </div>
+                <div class="card-img">
+                    <img id="avatar-img" class="card-img-bottom rounded-circle" src="~/img/@Model.Usuario.AvatarUser.ImageUrl" />
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
+
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+
+            $("#mySelectbox").on("change", function () {
+
+                var value = $(this).val();
+
+                switch (value) {
+                    case "1":
+                        // code block
+                        $("#avatar-img").attr("src", "/img/Default01.jpg");
+
+                        break;
+                    case "2":
+                        // code block
+                        $("#avatar-img").attr("src", "/img/Mujer01.jpg");
+
+                        break;
+                    default:
+                        // code block
+                        $("#avatar-img").attr("src", "/img/Default01.jpg");
+
+                }
+
+
+            });
+
+        });
+
+    </script>
+}
