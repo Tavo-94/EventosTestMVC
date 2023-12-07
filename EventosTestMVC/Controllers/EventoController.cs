@@ -292,10 +292,11 @@ namespace EventosTestMVC.Controllers
 
         public IActionResult ConfirmarAsistencia()
         {
+            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
 
             var modelo = _dataContext
                 .UsuarioToEventos
-                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId"))
+                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId") && e.EventoId == eventoId)
                 .FirstOrDefault();
 
             modelo.EstaConfirmado = true;
@@ -303,16 +304,17 @@ namespace EventosTestMVC.Controllers
             _dataContext.UsuarioToEventos.Update(modelo);
             _dataContext.SaveChanges();
 
-            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
 
             return RedirectToAction("Index", "Evento", new { idDelEvento = eventoId });
         }
 
         public IActionResult DeclinarAsistencia() {
 
+            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
+
             var modelo = _dataContext
                 .UsuarioToEventos
-                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId"))
+                .Where(e => e.UsuarioEmail == HttpContext.Session.GetString("UserLogInId") && e.EventoId == eventoId)
                 .FirstOrDefault();
 
             modelo.EstaConfirmado = false;
@@ -320,7 +322,6 @@ namespace EventosTestMVC.Controllers
             _dataContext.UsuarioToEventos.Update(modelo);
             _dataContext.SaveChanges();
 
-            var eventoId = new Guid(HttpContext.Session.GetString("CodigoEvento"));
 
             return RedirectToAction("Index", "Evento", new { idDelEvento = eventoId });
         }
