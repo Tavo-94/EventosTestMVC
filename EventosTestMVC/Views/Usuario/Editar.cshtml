@@ -36,55 +36,37 @@
                 <input class="form-control" asp-for="@Model.Usuario.Password">
                 <span asp-validation-for="@Model.Usuario.Password" class="text-danger"></span>
                 </div> *@
+                <select id="mySelectbox" asp-for="@Model.Usuario.AvatarUserId" asp-items="@Model.Avatares" class="form-select">
+                    <option selected disabled>--- Seleccionar ---</option>
 
+                </select>
 
-                <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Guardar Cambios</button>
+                <button type="submit" class="btn btn-primary rounded-pill px-5 align-self-center">Registrar</button>
             </form>
 
-            <div class="col-md-3 mb-4">
-                <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
-                    <!-- Puedes personalizar el estilo según tus necesidades -->
-                    <div class="card-body">
-                        <input type="hidden" id="Usuario_AvatarUserId" name="Usuario.AvatarUserId" value="@Model.Usuario.AvatarUserId" />
-                        <div class="lottie-container" id="Usuario_AvatarUserId" data-json-path="@Url.Content(Model.Usuario.AvatarUser.RutaJson)"></div>
-                    </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Avatar
+                    </h5>
                 </div>
-                <button type="button" id="openModalBtn">Cambiar Avatar</button>
+                <div class="card-img">
+                    <img id="avatar-img" class="card-img-bottom rounded-circle" src="~/json/@Model.Usuario.AvatarUser.RutaJson" />
+                </div>
             </div>
         </div>
     </div>
 
-</div>
-<!-- Modal para seleccionar el avatar -->
-<div id="avatarModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeModalBtn" style="font-size: 45px;">&times;</span>
-        <!-- Contenido del modal (lista de avatares) -->
-        <div class="row">
-            @foreach (var avatar in Model.Avatares)
-            {
-                <div class="col-md-3 mb-4">
-                    <a href="@Url.Action("SeleccionarAvatar", "Avatar", new { avatarId = avatar.Value })" class="card-link d-block">
-                        <div class="card h-100" style="background-color: rgba(249, 231, 159, 0.5); border-radius: 15px; overflow: hidden;">
-                            <div class="card-body">
-                                <div class="lottie-container avatarItem" data-avatar-id="@avatar.Value" data-json-path="@Url.Content(avatar.Text)"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-    </div>
 </div>
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
     <script>
         document.querySelectorAll('.lottie-container').forEach(function (container) {
             var jsonPath = container.getAttribute('data-json-path');
-
             if (jsonPath !== "") {
                 console.log('Cargando animación desde:', jsonPath);
-
                 var animation = bodymovin.loadAnimation({
                     container: container,
                     renderer: 'svg',
@@ -94,39 +76,25 @@
                 });
             }
         });
-
     </script>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("mySelectbox", function () {
             var modal = document.getElementById("avatarModal");
             var openBtn = document.getElementById("openModalBtn");
             var closeBtn = document.getElementById("closeModalBtn");
             var avatarDisplay = document.getElementById("avatarDisplay");
-
             openBtn.onclick = function () {
                 modal.style.display = "block";
             }
-
             closeBtn.onclick = function () {
                 modal.style.display = "none";
             }
-
             // Manejar la selección de avatar en el modal
             var avatarItems = document.getElementsByClassName("avatarItem");
             for (var i = 0; i < avatarItems.length; i++) {
                 avatarItems[i].onclick = function () {
-                    var avatarId = this.getAttribute("data-avatar-id");
-                    var avatarJsonPath = this.getAttribute("data-json-path");
 
-                    // Actualizar el contenido del div con el nuevo avatar
-                    avatarDisplay.innerHTML = '<div class="card-body"><div class="lottie-container" data-json-path="' + avatarJsonPath + '"></div></div>';
 
-                    // Cerrar el modal
-                    modal.style.display = "none";
-                };
-            }
-        });
     </script>
-}
-
 }

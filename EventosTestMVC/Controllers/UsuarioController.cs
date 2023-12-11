@@ -93,29 +93,25 @@ namespace EventosTestMVC.Controllers
 
 
 
-        public IActionResult Editar(int? avatarId)
+        public IActionResult Editar(string usuarioEmail)
         {
-            var usuarioEmail = HttpContext.Session.GetString("UserLogInId");
             RegistroViewModel viewModel = new RegistroViewModel()
             {
                 Usuario = _dataContext.UsuarioEntities
-                    .Where(u => u.Email == usuarioEmail)
-                    .Include(u => u.AvatarUser)
-                    .FirstOrDefault(),
+                .Where(u => u.Email == HttpContext.Session.GetString("UserLogInId"))
+                .Include(u => u.AvatarUser)
+                .FirstOrDefault(),
                 Avatares = _dataContext.AvatarUsers.Select(a =>
-                    new SelectListItem()
-                    {
-                        Text = a.RutaJson,
-                        Value = a.Id.ToString(),
-                        // Marcar el avatar seleccionado
-                        Selected = (a.Id == avatarId)
-                    }
-                ).ToList()
+                        new SelectListItem()
+                        {
+                            Text = a.RutaJson,
+                            Value = a.Id.ToString()
+                        }
+                    ).ToList()
             };
 
             return View(viewModel);
         }
-
 
         [HttpPost]
         public IActionResult Editar(RegistroViewModel registroViewModel)
